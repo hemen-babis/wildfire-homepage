@@ -18,6 +18,7 @@
     spinActive: true,
     userInteracting: false,
     rotationTimer: null,
+    spinResumeTimeout: null,
   };
 
   const form = document.getElementById("ignition-form");
@@ -109,6 +110,22 @@
 
   const createColorFromStatus = (status) => statusColors[status] || "#9ca3af";
 
+  const pauseSpin = (delayMs = 2000) => {
+    state.userInteracting = true;
+    if (state.rotationTimer) {
+      state.rotationTimer.stop();
+      state.rotationTimer = null;
+    }
+    if (state.spinResumeTimeout) window.clearTimeout(state.spinResumeTimeout);
+    state.spinResumeTimeout = window.setTimeout(() => {
+      state.userInteracting = false;
+      state.spinResumeTimeout = null;
+      if (!state.rotationTimer && projection && state.spinActive) {
+        state.rotationTimer = d3.timer(spinGlobe);
+      }
+    }, delayMs);
+  };
+
   const renderGlobe = () => {
     if (!svg || !countriesGeoJson) return;
     path = d3.geoPath().projection(projection);
@@ -169,6 +186,7 @@
     path = d3.geoPath().projection(projection);
 
     svg = d3.select(globeContainer).append("svg").attr("width", width).attr("height", height);
+    const svgNode = svg.node();
 
     globeCircle = svg
       .append("circle")
@@ -200,7 +218,7 @@
     const drag = d3
       .drag()
       .on("start", () => {
-        state.userInteracting = true;
+        pauseSpin();
       })
       .on("drag", (event) => {
         const rotate = projection.rotate();
@@ -209,19 +227,25 @@
         renderGlobe();
       })
       .on("end", () => {
-        state.userInteracting = false;
+        pauseSpin();
       });
 
     svg.call(drag);
 
+    ["pointerdown", "touchstart", "mousedown", "wheel"].forEach((eventName) => {
+      svgNode.addEventListener(eventName, () => pauseSpin(), { passive: true });
+    });
+
     svg.call(
       d3.zoom().scaleExtent([0.7, 2.6]).on("zoom", (event) => {
+        pauseSpin();
         projection.scale(radius * event.transform.k);
         renderGlobe();
       })
     );
 
     svg.on("click", (event) => {
+      pauseSpin();
       const [mx, my] = d3.pointer(event);
       const coords = projection.invert([mx, my]);
       if (!coords) return;
@@ -232,8 +256,14 @@
       setToast("Coordinates set from globe click.");
     });
 
-    if (zoomInBtn) zoomInBtn.addEventListener("click", () => svg.call(d3.zoom().scaleBy, 1.2));
-    if (zoomOutBtn) zoomOutBtn.addEventListener("click", () => svg.call(d3.zoom().scaleBy, 0.85));
+    if (zoomInBtn) zoomInBtn.addEventListener("click", () => {
+      pauseSpin();
+      svg.call(d3.zoom().scaleBy, 1.2);
+    });
+    if (zoomOutBtn) zoomOutBtn.addEventListener("click", () => {
+      pauseSpin();
+      svg.call(d3.zoom().scaleBy, 0.85);
+    });
 
     renderGlobe();
     if (state.rotationTimer) state.rotationTimer.stop();

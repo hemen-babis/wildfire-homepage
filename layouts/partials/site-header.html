@@ -1,0 +1,129 @@
+<script>
+  (function () {
+    var saved = localStorage.getItem('wf-theme');
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+
+<header class="wf-header">
+  <div class="wf-shell wf-nav-shell">
+    <a class="wf-brand" href="{{ .Site.Home.RelPermalink }}" aria-label="{{ .Site.Title | default `Wildfire Lab` }} home">
+      <img src="/fire.gif" alt="" aria-hidden="true" style="height:24px;width:auto;background:transparent;border-radius:4px;">
+      <span class="wf-brand-text"><span class="wf-brand-fire">Wild</span>fire Lab</span>
+    </a>
+
+    <div class="wf-header-actions">
+      <button class="wf-theme-toggle" type="button" aria-label="Toggle light/dark mode" title="Toggle theme">
+        <span class="wf-theme-icon wf-theme-icon--dark">🌙</span>
+        <span class="wf-theme-icon wf-theme-icon--light">☀️</span>
+      </button>
+
+      <button class="wf-nav-toggle" type="button" aria-expanded="false" aria-controls="wf-nav-menu" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle menu</span>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="wf-nav" id="wf-nav-menu" aria-label="Primary">
+      {{ if .Site.Menus.main }}
+        <ul>
+          {{ range .Site.Menus.main }}
+            <li{{ if .HasChildren }} class="has-children"{{ end }}>
+              <a href="{{ if compare.Eq .URL "/" }}{{ $.Site.Home.RelPermalink }}{{ else }}{{ .URL | relURL }}{{ end }}">{{ .Name }}</a>
+              {{ if .HasChildren }}
+                <ul class="submenu">
+                  {{ range .Children }}
+                    <li><a href="{{ .URL | relURL }}">{{ .Name }}</a></li>
+                  {{ end }}
+                </ul>
+              {{ end }}
+            </li>
+          {{ end }}
+        </ul>
+      {{ end }}
+    </nav>
+  </div>
+</header>
+
+<script>
+  (function () {
+    var header = document.querySelector('.wf-header');
+    if (!header) return;
+
+    var toggle    = header.querySelector('.wf-nav-toggle');
+    var nav       = header.querySelector('.wf-nav');
+    var themeBtn  = header.querySelector('.wf-theme-toggle');
+
+    /* hamburger */
+    if (toggle && nav) {
+      Array.prototype.forEach.call(nav.querySelectorAll('.has-children'), function (item, index) {
+        var link = item.querySelector(':scope > a');
+        var submenu = item.querySelector(':scope > .submenu');
+        if (!link || !submenu) return;
+
+        submenu.id = submenu.id || ('wf-submenu-' + index);
+
+        var submenuToggle = document.createElement('button');
+        submenuToggle.className = 'wf-submenu-toggle';
+        submenuToggle.type = 'button';
+        submenuToggle.setAttribute('aria-expanded', 'false');
+        submenuToggle.setAttribute('aria-controls', submenu.id);
+        submenuToggle.setAttribute('aria-label', 'Toggle submenu for ' + link.textContent.trim());
+        submenuToggle.innerHTML = '<span aria-hidden="true">+</span>';
+        item.insertBefore(submenuToggle, submenu);
+
+        submenuToggle.addEventListener('click', function (event) {
+          if (window.innerWidth > 900) return;
+          event.preventDefault();
+          var open = item.classList.toggle('is-expanded');
+          submenuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      });
+
+      toggle.addEventListener('click', function () {
+        var open = header.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      nav.addEventListener('click', function (event) {
+        var link = event.target.closest('a');
+        if (!link || window.innerWidth > 900) return;
+        header.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 900) {
+          header.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          Array.prototype.forEach.call(nav.querySelectorAll('.has-children.is-expanded'), function (item) {
+            item.classList.remove('is-expanded');
+            var submenuToggle = item.querySelector(':scope > .wf-submenu-toggle');
+            if (submenuToggle) submenuToggle.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+    }
+
+    /* scroll shadow */
+    window.addEventListener('scroll', function () {
+      header.classList.toggle('scrolled', window.scrollY > 24);
+    }, { passive: true });
+
+    /* theme toggle */
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function () {
+        var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        if (isLight) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('wf-theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('wf-theme', 'light');
+        }
+      });
+    }
+  })();
+</script>

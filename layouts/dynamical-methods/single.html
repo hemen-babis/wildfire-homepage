@@ -1,0 +1,40 @@
+{{ define "main" }}
+<section class="methods-page">
+  <div class="wf-shell methods-shell">
+    <header class="methods-hero">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Dynamical Workflow</span>
+      </div>
+      <h1>{{ .Title }}</h1>
+      <p>
+        A step-by-step guide for setting up WRF-SFIRE simulations with WRFxPy, from package setup through job configuration and SLURM execution.
+      </p>
+    </header>
+
+    <div class="methods-layout">
+      <aside class="methods-sidebar" aria-label="Guide navigation">
+        <div class="methods-panel">
+          <p class="methods-panel-label">Quick Jump</p>
+          {{ .TableOfContents }}
+        </div>
+        <div class="methods-panel methods-panel--compact">
+          <p class="methods-panel-label">Guide Focus</p>
+          <ul class="methods-mini-list">
+            <li>Prerequisites and package setup</li>
+            <li>Job JSON structure</li>
+            <li>Domain and ignition config</li>
+            <li>SBATCH submission flow</li>
+          </ul>
+        </div>
+      </aside>
+
+      <article class="methods-article">
+        <section class="article-body methods-body">
+          {{ .Content }}
+        </section>
+      </article>
+    </div>
+  </div>
+</section>
+{{ end }}

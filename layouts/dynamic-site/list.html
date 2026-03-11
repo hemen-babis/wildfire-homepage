@@ -1,0 +1,119 @@
+{{ define "main" }}
+
+<!-- ═══════════════════════════════════════════════════
+     PAGE HEADER
+     ═══════════════════════════════════════════════════ -->
+<div class="ds-page">
+  <div class="wf-shell">
+
+    <div class="ds-header">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">WRF-SFIRE Output</span>
+      </div>
+      <h1 class="ds-title">Simulation Showcase</h1>
+      <p class="ds-lead">
+        Sample outputs from a WRF‑SFIRE simulation, visualized using <code>wrfxweb</code>.
+        These visualizations help fire managers and researchers gain valuable insights into
+        potential fire behavior, aiding in both strategic planning and emergency response.
+      </p>
+    </div>
+
+    <!-- ─── Live site access card ─── -->
+    <div class="sim-live-block">
+      <div class="sim-live-header">
+        <span class="sim-live-dot"></span>
+        <span class="sim-live-kicker">Live Dynamical Website</span>
+      </div>
+      <p class="sim-live-desc">
+        You can access our dynamical website here to see some sample wildfire simulations.
+      </p>
+      <a class="sim-live-link" href="https://wildfire-simulations.cecs.pdx.edu/" target="_blank" rel="noopener">
+        wildfire-simulations.cecs.pdx.edu ↗
+      </a>
+      <ul class="sim-live-tips">
+        <li>Some simulations have multiple domains shown in the top right area.</li>
+        <li>You'll sometimes have to switch to the innermost domain to see the actual fire area.</li>
+      </ul>
+      <div class="sim-vpn-notice">
+        <span class="sim-vpn-icon">🔒</span>
+        <div>
+          <p>The dynamical website was set up with the help of the <strong>MCECS Computer Action Team (CAT)</strong>,
+          and can only be accessed while on the MCECS network, or VPN. This was done for security purposes.</p>
+          <a href="https://cat.pdx.edu/services/network/vpn-services/" target="_blank" rel="noopener">cat.pdx.edu/services/network/vpn-services ↗</a>
+          <span class="sim-vpn-more">— for more information on how to connect to the MCECS VPN.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Simulation gallery ─── -->
+    <div class="wf-section-label" style="margin-top:3.5rem;">
+      <span class="wf-label-rule"></span>
+      <span class="wf-label-text">Sample Outputs</span>
+    </div>
+    <h2 class="ds-section-title">Fire Spread Simulations</h2>
+
+    <div class="ds-gallery">
+
+      <div class="wf-sim-card">
+        <div class="wf-sim-media">
+          <img src="/CaldorSimulation.gif" alt="Caldor fire simulation — animated fire spread" loading="lazy">
+          <div class="wf-sim-overlay">
+            <div class="wf-sim-overlay-top">
+              <span class="wf-sim-tag">WRF-SFIRE</span>
+            </div>
+            <div class="wf-sim-overlay-bottom">
+              <h3 class="wf-sim-title">Caldor Fire</h3>
+              <p class="wf-sim-desc">Simulated fire spread from our WRF‑SFIRE model. Validated against observed perimeter data.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-sim-card">
+        <div class="wf-sim-media">
+          <img src="/PalisadesSimulation.gif" alt="Palisades fire simulation — animated fire spread" loading="lazy">
+          <div class="wf-sim-overlay">
+            <div class="wf-sim-overlay-top">
+              <span class="wf-sim-tag">Model Output</span>
+            </div>
+            <div class="wf-sim-overlay-bottom">
+              <h3 class="wf-sim-title">Palisades Fire — Simulation</h3>
+              <p class="wf-sim-desc">Physics-based fire spread simulation for the 2025 Palisades Fire event.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-sim-card">
+        <div class="wf-sim-media">
+          <img src="/PalisadesTrueFireSpread.png" alt="Palisades fire observed spread data" loading="lazy">
+          <div class="wf-sim-overlay">
+            <div class="wf-sim-overlay-top">
+              <span class="wf-sim-tag wf-sim-tag--nasa">NASA Observed</span>
+            </div>
+            <div class="wf-sim-overlay-bottom">
+              <h3 class="wf-sim-title">Palisades Fire — Observed</h3>
+              <p class="wf-sim-desc">Actual fire spread of the Palisades Fire, collected by NASA satellite imagery.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ─── CTA to ignition portal ─── -->
+    <div class="ds-cta">
+      <div class="ds-cta-inner">
+        <div>
+          <p class="ds-cta-label">Want to request a simulation?</p>
+          <p class="ds-cta-sub">Use our concept ignition portal to submit a fire simulation request.</p>
+        </div>
+        <a class="wf-btn wf-btn-primary" href="/dynamic-site/ignition-portal/">Ignition Request Portal →</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{{ end }}

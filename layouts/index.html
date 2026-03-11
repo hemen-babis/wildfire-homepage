@@ -1,39 +1,249 @@
 {{ define "main" }}
-  <article class="cf ph3 ph5-l pv3 pv4-l f4 tc-l center measure-wide lh-copy nested-links {{ $.Param "text_color" | compare.Default "mid-gray" }}">
-    {{ .Content }}
-  </article>
 
-  {{ $mainSections := site.Params.mainSections | compare.Default (collections.Slice "post") }}
-  {{ $show_recent_posts := site.Params.ananke.show_recent_posts }}
-  {{ $excludedSections := collections.Slice "admin" "dynamic-site" }}
-  {{ $section := collections.Where $.Site.RegularPages "Section" "in" $mainSections }}
-  {{ $section = collections.Where $section "Section" "not in" $excludedSections }}
-  {{ $section_count := len $section }}
+<!-- ═══════════════════════════════════════════════════
+     HERO — Split editorial: text left, sim GIF right
+     ═══════════════════════════════════════════════════ -->
+<section class="wf-hero" aria-label="Hero">
+  <div class="wf-hero-glow" aria-hidden="true"></div>
 
-  {{ if and ($show_recent_posts) (compare.Ge $section_count 1) }}
-    <div class="pa3 pa4-ns w-100 w-70-ns center">
-      {{ $n_posts := $.Param "recent_posts_number" | compare.Default 3 }}
+  <!-- Floating ember particles -->
+  <div class="wf-embers" aria-hidden="true">
+    <span class="wf-ember" style="left:5%;  width:3px;height:3px; --dur:9s;   --delay:0s;   --drift:32px;"></span>
+    <span class="wf-ember" style="left:14%; width:2px;height:2px; --dur:12s;  --delay:1.6s; --drift:-22px;"></span>
+    <span class="wf-ember" style="left:23%; width:3px;height:3px; --dur:10s;  --delay:3s;   --drift:44px;"></span>
+    <span class="wf-ember" style="left:34%; width:2px;height:2px; --dur:8s;   --delay:0.8s; --drift:-38px;"></span>
+    <span class="wf-ember" style="left:44%; width:4px;height:4px; --dur:11s;  --delay:2.2s; --drift:26px;"></span>
+    <span class="wf-ember" style="left:53%; width:2px;height:2px; --dur:9.5s; --delay:4.1s; --drift:-40px;"></span>
+    <span class="wf-ember" style="left:62%; width:3px;height:3px; --dur:13s;  --delay:1.1s; --drift:30px;"></span>
+    <span class="wf-ember" style="left:71%; width:2px;height:2px; --dur:7.5s; --delay:5s;   --drift:-28px;"></span>
+    <span class="wf-ember" style="left:80%; width:3px;height:3px; --dur:10.5s;--delay:2.8s; --drift:50px;"></span>
+    <span class="wf-ember" style="left:89%; width:2px;height:2px; --dur:11.5s;--delay:0.4s; --drift:36px;"></span>
+    <span class="wf-ember" style="left:18%; width:2px;height:2px; --dur:14s;  --delay:3.5s; --drift:-30px;"></span>
+    <span class="wf-ember" style="left:76%; width:3px;height:3px; --dur:8.5s; --delay:1.8s; --drift:20px;"></span>
+  </div>
 
-      <section class="w-100 mw8">
-        {{ range (collections.First $n_posts $section) }}
-          <div class="w-100 mb4 relative">
-            {{ .Render "summary-with-image" }}
+  <div class="wf-shell">
+    <div class="wf-hero-inner">
+
+      <!-- Left: editorial text stack -->
+      <div class="wf-hero-text">
+        <p class="wf-eyebrow">
+          <span class="wf-eyebrow-dot"></span>
+          Portland State University - Capstone 2025-26
+        </p>
+
+        <h1 class="wf-hero-title">
+          <span class="wf-title-fire">Wildfire</span>
+          <span class="wf-title-main">Forecasts</span>
+          <span class="wf-title-sub">For Everyone.</span>
+        </h1>
+
+        <p class="wf-hero-lead">
+          Physics-driven WRF‑SFIRE simulations and FourCastNet AI —
+          so communities can see how fires spread before they do.
+        </p>
+
+        <div class="wf-hero-actions">
+          <a class="wf-btn wf-btn-primary" href="/dynamic-site/">View Simulations →</a>
+          <a class="wf-btn wf-btn-ghost" href="/dynamical-methods/">Explore Methods</a>
+        </div>
+
+        <div class="wf-hero-tags">
+          <span>WRF-SFIRE</span>
+          <span>FourCastNet AI</span>
+          <span>Portland State University</span>
+          <span>Real-Time Forecasting</span>
+        </div>
+      </div>
+
+      <!-- Right: cinematic simulation preview -->
+      <div class="wf-hero-visual">
+        <div class="wf-hero-frame">
+          <img src="{{ "PalisadesSimulation.gif" | relURL }}"
+               alt="Palisades fire spread simulation — animated WRF-SFIRE output"
+               class="wf-hero-gif">
+          <div class="wf-hero-frame-bar">
+            <span class="wf-frame-label">WRF-SFIRE Output</span>
+            <span class="wf-frame-name">Palisades Fire · 2025</span>
           </div>
-        {{ end }}
-      </section>
+        </div>
+      </div>
 
-      {{ if compare.Ge $section_count (math.Add $n_posts 1) }}
-        <section class="w-100">
-          <h1 class="f3">{{ lang.Translate "more" }}</h1>
-          {{ range (collections.First 4 (collections.After $n_posts $section))  }}
-            <h2 class="f5 fw4 mb4 dib {{ compare.Conditional (compare.Eq $.Site.Language.LanguageDirection "rtl") "ml3" "mr3" }}">
-              <a href="{{ .RelPermalink }}" class="link black dim">
-                {{ .Title }}
-              </a>
-            </h2>
-          {{ end }}
-        </section>
-      {{ end }}
     </div>
-  {{ end }}
+  </div>
+</section>
+
+<hr class="wf-divider">
+
+<!-- ═══════════════════════════════════════════════════
+     SIMULATIONS — Cinematic full-height cards
+     ═══════════════════════════════════════════════════ -->
+<section class="wf-section-wrap" id="simulations" aria-label="Recent simulations">
+  <div class="wf-shell">
+    <div class="wf-section-header fade-up">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Model Output</span>
+      </div>
+      <h2 class="wf-section-title">Recent Fire Simulations</h2>
+      <p class="wf-section-sub">
+        High-resolution wildfire spread simulations from our coupled WRF‑SFIRE model.
+      </p>
+    </div>
+
+    <div class="wf-sims-grid">
+      <div class="wf-sim-card fade-up">
+        <div class="wf-sim-media">
+          <img src="{{ "PalisadesSimulation.gif" | relURL }}"
+               alt="Palisades fire simulation — animated fire spread" loading="lazy">
+          <div class="wf-sim-overlay">
+            <div class="wf-sim-overlay-top">
+              <span class="wf-sim-tag">WRF-SFIRE</span>
+            </div>
+            <div class="wf-sim-overlay-bottom">
+              <h3 class="wf-sim-title">Palisades Fire</h3>
+              <p class="wf-sim-desc">Physics-based two-way fire-atmosphere coupling. Terrain, fuel, and live wind dynamics captured in real time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wf-sim-card fade-up">
+        <div class="wf-sim-media">
+          <img src="{{ "CaldorSimulation.gif" | relURL }}"
+               alt="Caldor fire simulation — animated fire spread" loading="lazy">
+          <div class="wf-sim-overlay">
+            <div class="wf-sim-overlay-top">
+              <span class="wf-sim-tag">Model Output</span>
+            </div>
+            <div class="wf-sim-overlay-bottom">
+              <h3 class="wf-sim-title">Caldor Fire</h3>
+              <p class="wf-sim-desc">Validated against observed fire perimeter progression and satellite imagery data.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wf-section-cta fade-up">
+      <a class="wf-btn wf-btn-ghost" href="/dynamic-site/">View All Simulations →</a>
+    </div>
+  </div>
+</section>
+
+<hr class="wf-divider">
+
+<!-- ═══════════════════════════════════════════════════
+     TECH STACK — Joined grid, strong type
+     ═══════════════════════════════════════════════════ -->
+<section class="wf-section-wrap wf-surface" id="technology" aria-label="Technology">
+  <div class="wf-shell">
+    <div class="wf-section-header fade-up">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">The Stack</span>
+      </div>
+      <h2 class="wf-section-title">Powered By</h2>
+      <p class="wf-section-sub">
+        Physics meets AI — two complementary systems, one unified forecasting platform.
+      </p>
+    </div>
+
+    <div class="wf-tech-grid">
+      <div class="wf-tech-card fade-up">
+        <div class="wf-tech-header">
+          <span class="wf-tech-kicker">Dynamical Model</span>
+          <h3 class="wf-tech-name">WRF‑SFIRE</h3>
+        </div>
+        <p class="wf-tech-desc">
+          A physics-based coupled model simulating the two-way interaction between wildfires and the atmosphere.
+          Captures fire behavior driven by terrain, fuel, and live wind dynamics in real time.
+        </p>
+        <a class="wf-tech-link" href="/dynamical-methods/">Learn how it works →</a>
+      </div>
+
+      <div class="wf-tech-card fade-up">
+        <div class="wf-tech-header">
+          <span class="wf-tech-kicker">AI / Deep Learning</span>
+          <h3 class="wf-tech-name">NVIDIA FourCastNet</h3>
+        </div>
+        <p class="wf-tech-desc">
+          State-of-the-art deep learning for fast, accurate atmospheric forecasting. We fine-tune FourCastNet
+          on WRF‑SFIRE outputs to accelerate wildfire spread prediction at scale.
+        </p>
+        <a class="wf-tech-link" href="/ai-methods/">Learn how it works →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="wf-divider">
+
+<!-- ═══════════════════════════════════════════════════
+     MISSION — Big stats + editorial text split
+     ═══════════════════════════════════════════════════ -->
+<section class="wf-section-wrap" id="mission" aria-label="Mission">
+  <div class="wf-shell">
+
+    <!-- Stats row — editorial big numbers -->
+    <div class="wf-stats-row fade-up">
+      <div class="wf-stat-big">
+        <span class="wf-stat-num">7</span>
+        <span class="wf-stat-label">Team Members</span>
+      </div>
+      <div class="wf-stat-divider" aria-hidden="true"></div>
+      <div class="wf-stat-big">
+        <span class="wf-stat-num">2</span>
+        <span class="wf-stat-label">Model Tracks</span>
+      </div>
+      <div class="wf-stat-divider" aria-hidden="true"></div>
+      <div class="wf-stat-big">
+        <span class="wf-stat-num">PSU</span>
+        <span class="wf-stat-label">Portland State</span>
+      </div>
+      <div class="wf-stat-divider" aria-hidden="true"></div>
+      <div class="wf-stat-big">
+        <span class="wf-stat-num">2025</span>
+        <span class="wf-stat-label">Capstone Year</span>
+      </div>
+    </div>
+
+    <!-- Mission split -->
+    <div class="wf-mission-split fade-up">
+      <div class="wf-mission-left">
+        <div class="wf-section-label">
+          <span class="wf-label-rule"></span>
+          <span class="wf-label-text">Our Mission</span>
+        </div>
+        <h2 class="wf-mission-title">Making wildfire prediction accessible to everyone.</h2>
+      </div>
+      <div class="wf-mission-right">
+        <p>
+          Wildfires are a growing threat — causing billions in damage, displacing thousands,
+          and degrading air quality across entire regions. Our PSU Capstone team is building
+          a platform that makes state-of-the-art fire forecasting accessible, interpretable,
+          and actionable for the public.
+        </p>
+        <div class="wf-mission-actions">
+          <a class="wf-btn wf-btn-primary" href="/team/">Meet the Team</a>
+          <a class="wf-btn wf-btn-ghost" href="/wildfire-twin/">Climate Models</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+(function () {
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(function (el) { io.observe(el); });
+  }
+})();
+</script>
 {{ end }}

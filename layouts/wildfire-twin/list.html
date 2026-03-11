@@ -1,0 +1,167 @@
+{{ define "main" }}
+{{ $featured := slice
+  (dict
+    "id" "wrf"
+    "name" "WRF"
+    "full" "Weather Research and Forecasting"
+    "category" "Dynamical"
+    "image" "/wrf.png"
+    "summary" "A flexible regional weather model used for mesoscale forecasting and extensible wildfire workflows."
+    "detail" "The Weather Research and Forcasting (WRF) model is a community model, develop jointly by the National Center for Atmospheric Research (NCAR) and multiple US agencies such as the NOAA, NCEP, and the Air Force. It is regional-based and can be configured to work across multiple scales, though commonly used at mesoscale. WRFs primary application comes from it flexability, and can be tooled for multiple uses, often by coupling with WRF. This leads to many WRF extensions, like WRF-Chem, WRF-Hydro, and WRF-Fire, which specialize in paticulars like severe weather, and storm-scale predictions. This is a strength, as it is has community backing, giving it a multitude of options and capabilites for various applications. However, WRF does has weaknesses, it being a limited-area model makes it depend on external boundary conditions that lead to lateral bonundary errors over a long run time. It also features multiple dynamic cores, which necessitates a CPU-intensive approach."
+    "link" "https://repository.library.noaa.gov/view/noaa/20592"
+    "linkText" "Powers et al., 2017"
+    "link2" "https://www.researchgate.net/publication/312076325_The_Weather_Research_and_Forecasting_WRF_Model_Overview_System_Efforts_and_Future_Directions"
+    "link2Text" "PDF (ResearchGate)")
+  (dict
+    "id" "gfs"
+    "name" "GFS"
+    "full" "Global Forecast System"
+    "category" "Operational Global"
+    "image" "/gfs.png"
+    "summary" "NOAA's global forecasting model, updated every 6 hours for medium-range guidance worldwide."
+    "detail" "The Global Forecast System (GFS) is a model developed by NOAA's National Center for Environmental Prediction (NCEP). It is primarily a US global weather model with development coodination between NOAA and partners like NASA, and university researchers via the Unified Forecast System initiative [US Department of Commerce, 2020]. The model functions as an analysis cycle, updating atmospheric states every 6 hours, within a 6-hour window, using a vasy array of observational data. Its primary application is to provide global forecasts for medium-range weather predition worldwide, and it gives guidance for up to two weeks. This punctuality is a strength, as it fast, has open avalibility, in addition to its timely updates. However, this comes at the cost of resolution, and still does not rival the best global models [US Department of Commerce, 2020]."
+    "link" "https://www.weather.gov/sti/stimodeling_nggps_implementation?utm_source"
+    "linkText" "U.S. Department of Commerce, 2020")
+  (dict
+    "id" "ifs"
+    "name" "IFS"
+    "full" "ECMWF Integrated Forecasting System"
+    "category" "Operational Global"
+    "image" "/ifs.jpg"
+    "summary" "A high-skill global model known for strong forecast accuracy, advanced physics, and deep vertical resolution."
+    "detail" "The European Centre for Medium-Range Weather Forecasts's Intergrated Forecating System (ECMWF IFS) is a model developed by 30 international organizations and supported by over 30 European states. Renown for its leading global forecasting skill, IFS includes advance physics parameterization, which is continually updated and optimized for the IFS physics. It uses about 137 vertical levels, and orecasts are projected out to 10 days at full resolution and extended to 15 days with slightly coarser resolution beyond 10 days [COMMpla|Trust-IT, 2022]."
+    "link" "https://www.ecmwf.int/en/forecasts"
+    "linkText" "ECMWF Forecasts")
+}}
+
+{{ $aiModels := slice
+  (dict
+    "id" "fourcastnet"
+    "name" "FourCastNet"
+    "full" "NVIDIA FourCastNet"
+    "category" "AI Forecasting"
+    "logo" "NVIDIA"
+    "summary" "A Fourier neural operator model built for fast global weather prediction."
+    "detail" "FourCastNet is a deep learning weather model developed by NVIDIA that uses adaptive Fourier neural operators to emulate global weather forecasting. It produces accurate short to medium range predictions, matching the accuracy of Numerical Weather Predition model EXMWF IFS. The primary strength of the model is its speed, generating a week-long global forecast in under two seconds. However, the model is limited by longer-range accuracy for certain atmospheric fields, lagging behind the top physics-based models."
+    "link" "https://arxiv.org/abs/2202.11214"
+    "linkText" "Pathak et al., 2022")
+  (dict
+    "id" "graphcast"
+    "name" "GraphCast"
+    "full" "Google DeepMind GraphCast"
+    "category" "AI Forecasting"
+    "image" "/DeepMind_logo.png"
+    "summary" "A graph neural network system for 10-day global forecasts and extreme-event prediction."
+    "detail" "GraphCast is a global weather forecasting system developed by Google DeepMind, that leverages a graph neural network architecture to predict atmospheric dynamics. It is trained on decades of historical reanalysis data, and can predict the temporal evolution of hundreds of meteorological variables up to 10 days into the future. It significantly outpreforms ECMWF's IFS on 90% of evaluated targets, improving tropical cyclone tracks, atmospheric river forecasts, and heat wave prediction. This 10 day forcast can be done under 1 minute, on a single TPU, reducing computational cost, but still remaining computationally intensive."
+    "link" "https://arxiv.org/abs/2212.12794"
+    "linkText" "Lam et al., 2023")
+  (dict
+    "id" "pangu"
+    "name" "Pangu-Weather"
+    "full" "Huawei Pangu-Weather"
+    "category" "AI Forecasting"
+    "image" "/Huawei_Standard_logo.png"
+    "logoClass" "wt-detail-logo--brand"
+    "summary" "A 3D Earth-specific transformer designed for fast, accurate deterministic forecasts."
+    "detail" "Pangu-Weather is a transformer-based AI model developed by Huawei. It employs a three-dimentional Earth-specific Tranformer architecture that is designed to incorperated the vertical structure of the atmosphere. Pangu-Weather was the first AI model to exceed ECMWF's IFS in deterministic forecast accuracy across all evaluated variables and lead times when tested on 39 years of reanalysis data. It also demostrated superior skill for predicting extreme weather events. Once trained, the model can generate 10000 times faster than IFS, however this comes at the cost of training, involving significant computational resources."
+    "link" "https://arxiv.org/abs/2211.02556"
+    "linkText" "Bi et al., 2022")
+  (dict
+    "id" "aurora"
+    "name" "Aurora"
+    "full" "Microsoft Aurora"
+    "category" "Foundation Model"
+    "image" "/Microsoft_logo.png"
+    "logoClass" "wt-detail-logo--brand"
+    "summary" "A large pretrained model spanning weather, air quality, and ocean forecasting tasks."
+    "detail" "Aurora is a deep learning model developed by Microsoft, designed to handle multiple domains, including weather, air quality, and ocean prediction under a single framework. It is pretrained on over a million hours of climate and weather data, and can be fine-tuned for a specific task with minimal training. It can deliver state-of-the-art accuracy across multiple domains, often outperforming specialized operational models, while remaining faster. Its main strength is adaptability, enabling rapid deployment for new forecasting applications."
+    "link" "https://arxiv.org/abs/2405.13063"
+    "linkText" "Bodnar et al., 2024")
+}}
+
+{{ $allModels := $featured | append $aiModels }}
+
+<section class="wt-page">
+  <div class="wf-shell">
+    <div class="wt-hero">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Forecast Stack</span>
+      </div>
+      <h1 class="wt-title">Weather Models Overview</h1>
+      <p class="wt-lead">
+        A cleaner view of the forecasting systems behind the project, from operational physics models to newer AI-driven weather prediction systems.
+      </p>
+      <div class="wt-intro-grid">
+        <div class="wt-intro-card">
+          <span class="wt-kicker">Why this page exists</span>
+          <p>These models feed the atmospheric context around wildfire spread, forecast inputs, and model comparison work across the site.</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="wt-section" aria-labelledby="wt-grid-title">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Quick Scan</span>
+      </div>
+      <h2 class="ds-section-title" id="wt-grid-title">Model Directory</h2>
+      <div class="wt-grid">
+        {{ range $allModels }}
+          <a class="wt-card" href="#{{ .id }}">
+            <div class="wt-card-top">
+              <span class="wt-chip">{{ .category }}</span>
+              <span class="wt-jump">Open</span>
+            </div>
+            {{ if .image }}
+              <div class="wt-logo-shell">
+                <img src="{{ .image | relURL }}" alt="{{ .name }} logo" loading="lazy">
+              </div>
+            {{ else }}
+              <div class="wt-logo-shell wt-logo-shell--text">
+                <span>{{ .logo }}</span>
+              </div>
+            {{ end }}
+            <h3>{{ .full }}</h3>
+            <p>{{ .summary }}</p>
+          </a>
+        {{ end }}
+      </div>
+    </section>
+
+    <section class="wt-section" aria-labelledby="wt-detail-title">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Deep Dive</span>
+      </div>
+      <h2 class="ds-section-title" id="wt-detail-title">Detailed Model Descriptions</h2>
+      <div class="wt-detail-list">
+        {{ range $allModels }}
+          <article class="wt-detail-card" id="{{ .id }}">
+            <div class="wt-detail-head">
+              <div>
+                <span class="wt-chip">{{ .category }}</span>
+                <h3>{{ .full }}</h3>
+              </div>
+              {{ if .image }}
+                <div class="wt-detail-logo{{ if .logoClass }} {{ .logoClass }}{{ end }}">
+                  <img src="{{ .image | relURL }}" alt="{{ .name }} logo" loading="lazy">
+                </div>
+              {{ else }}
+                <div class="wt-detail-logo wt-detail-logo--text">
+                  <span>{{ .logo }}</span>
+                </div>
+              {{ end }}
+            </div>
+            <p>{{ .detail }}</p>
+            <a href="{{ .link }}" target="_blank" rel="noopener">{{ .linkText }} ↗</a>
+            {{ if .link2 }}
+              <a href="{{ .link2 }}" target="_blank" rel="noopener">{{ .link2Text }} ↗</a>
+            {{ end }}
+          </article>
+        {{ end }}
+      </div>
+    </section>
+  </div>
+</section>
+{{ end }}

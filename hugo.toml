@@ -1,54 +1,60 @@
 baseURL = "https://yourwebsite.com/" # Replace with your actual URL
 languageCode = "en-us"
-title = ""
+title = "Wildfire Lab"
 theme = "ananke" # Or any other theme you prefer
-copyright = "Portland State University Wildfire Lab" 
+copyright = "Portland State University Wildfire Lab"
 
 [params]
-  custom_css = ["css/custom.css"] # This tells Ananke to load your custom CSS
+  custom_css = ["css/custom.css"]
+  body_classes = "wf-dark"
 
 [menu]
   [[menu.main]]
     name = "Project Description"
     url = "/"
     weight = 1
+
   [[menu.main]]
     name = "Team Members"
     url = "/team/"
     weight = 2
-  [[menu.main]]
-    name = "Climate Models Overview"
-    url = "/wildfire-twin/" # Create page if needed
-    weight = 3
-  [[menu.main]]
-  identifier = "wildfire-simulations"
-  name = "Wildfire Simulations"
-    url = "/dynamic-site/"
-    weight = 4
 
+  [[menu.main]]
+    identifier = "wildfire-simulations"
+    name = "Wildfire Simulations"
+    url = "/dynamic-site/"
+    weight = 3
   [[menu.main]]
     name = "Ignition Request Portal (Concept UI)"
     url = "/dynamic-site/ignition-portal/"
     parent = "wildfire-simulations"
-    weight = 30
+    weight = 10
+
   [[menu.main]]
-    name = "Model Update"
-    url = "/model-update/" # Create page if needed
-    weight = 98
+    identifier = "methods"
+    name = "Methods & Models"
+    url = "/wildfire-twin/"
+    weight = 4
+  [[menu.main]]
+    name = "Climate Models Overview"
+    url = "/wildfire-twin/"
+    parent = "methods"
+    weight = 10
+  [[menu.main]]
+    name = "WRF + SFIRE Methods"
+    url = "/dynamical-methods/"
+    parent = "methods"
+    weight = 20
+  [[menu.main]]
+    name = "FourCastNet Methods"
+    url = "/ai-methods/"
+    parent = "methods"
+    weight = 30
 
   [[menu.main]]
     name = "Sources"
-    url = "/sources/" # Create page if needed
-    weight = 99
-
-  [[menu.main]]
-  name = "WRF + SFIRE Methods"
-    url = "/dynamical-methods/"
-    weight = 7
-  [[menu.main]]
-  name = "FourCastNet Methods"
-    url = "/ai-methods/"
-    weight = 8
+    url = "/sources/"
+    weight = 5
 
 [markup]
   [markup.goldmark]

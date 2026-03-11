@@ -1,0 +1,192 @@
+{{ define "main" }}
+<section class="sources-page">
+  <div class="wf-shell">
+    <header class="sources-hero">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Research Trail</span>
+      </div>
+      <h1 class="sources-title">Sources</h1>
+      <p class="sources-lead">
+        The datasets, tools, media references, and acknowledgements behind the Wildfire Lab forecasting workflow.
+      </p>
+    </header>
+
+    <section class="sources-section">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Overview</span>
+      </div>
+      <div class="sources-overview">
+        <article class="sources-feature-card">
+          <h2>Project repository</h2>
+          <p>Complete code, documentation, and workflow history for the capstone project.</p>
+          <a href="https://github.com/PSU-CS-Wildfire-Capstone-Sp-S-25" target="_blank" rel="noopener">Our Complete GitHub Project ↗</a>
+        </article>
+        <article class="sources-feature-card">
+          <h2>Media notes</h2>
+          <ul class="sources-inline-list">
+            <li><strong>Caldor Fire Progression GIF</strong>: Source unknown</li>
+            <li><a href="https://hub-calfire-forestry.hub.arcgis.com/datasets/wfigs-2025-wildfire-perimeters/explore?location=34.050903%2C-118.575550%2C11.57" target="_blank" rel="noopener">CAL FIRE WFIG 2025 Wildfire Perimeter: Palisades True Fire Perimeter ↗</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="sources-section">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Data Sources</span>
+      </div>
+      <div class="sources-grid">
+        <article class="sources-card">
+          <h3>FCN_ERA5_DATA_V0</h3>
+          <p>FourCastNet ERA5 data from the project Globus instance, originally sourced from the Copernicus Climate Change Service Climate Data Store.</p>
+          <a href="https://app.globus.org/file-manager?origin_id=945b3c9e-0f8c-11ed-8daf-9f359c660fbd&origin_path=%2F~%2Fdata%2F" target="_blank" rel="noopener">ERA5 data for FourCastNet ↗</a>
+        </article>
+        <article class="sources-card">
+          <h3>MERRA-2 Datasets</h3>
+          <p>Public NASA atmospheric reanalysis datasets used for weather and Earth system research.</p>
+          <a href="https://goldsmr4.gesdisc.eosdis.nasa.gov/data/MERRA2/" target="_blank" rel="noopener">NASA MERRA-2 archive ↗</a>
+        </article>
+        <article class="sources-card">
+          <h3>WPS_GEOG</h3>
+          <p>Static geographical data from OpenWFM used for WRFxPy and WRF preprocessing workflows.</p>
+          <a href="https://demo.openwfm.org/web/wrfx/WPS_GEOG.tbz" target="_blank" rel="noopener">Download WPS_GEOG.tbz ↗</a>
+        </article>
+        <article class="sources-card">
+          <h3>WFIGS / Fire Perimeters</h3>
+          <p>CAL FIRE eGIS perimeter data used for wildfire perimeter reference and comparison work.</p>
+          <a href="https://hub-calfire-forestry.hub.arcgis.com/datasets/wfigs-2025-wildfire-perimeters/explore" target="_blank" rel="noopener">CAL FIRE wildfire perimeters ↗</a>
+        </article>
+      </div>
+      <div class="sources-note">
+        <p>The CAL FIRE / WFIGS perimeter data is dynamic and should be treated as a reference source, not a legal record. Accuracy, completeness, and downstream use remain the responsibility of the data user.</p>
+      </div>
+    </section>
+
+    <section class="sources-section">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Tools & Components</span>
+      </div>
+      <div class="sources-grid">
+        <article class="sources-card">
+          <h3>FourCastNet</h3>
+          <p>Machine learning model for weather forecasting.</p>
+          <a href="https://github.com/NVlabs/FourCastNet" target="_blank" rel="noopener">BSD-3-Clause ↗</a>
+        </article>
+        <article class="sources-card">
+          <h3>WRFxPy</h3>
+          <p>Python interface for processing WRF output and managing forecast jobs.</p>
+          <a href="https://github.com/PSU-CS-Wildfire-Capstone-Sp-S-25/wrfxpy" target="_blank" rel="noopener">MIT License ↗</a>
+        </article>
+        <article class="sources-card">
+          <h3>WRFxWeb</h3>
+          <p>Web-based visualization layer for wildfire and weather simulation output.</p>
+          <a href="https://github.com/PSU-CS-Wildfire-Capstone-Sp-S-25/wrfxweb" target="_blank" rel="noopener">Repository ↗</a>
+        </article>
+        <article class="sources-card">
+          <h3>SLURM</h3>
+          <p>Cluster job scheduling system used for orchestration and compute workloads.</p>
+          <a href="https://slurm.schedmd.com/" target="_blank" rel="noopener">GNU GPL ↗</a>
+        </article>
+        <article class="sources-card">
+          <h3>Hugo</h3>
+          <p>Static site generator used to build the public-facing project website.</p>
+          <a href="https://gohugo.io/" target="_blank" rel="noopener">Project site ↗</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="sources-section">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Fire References</span>
+      </div>
+      <div class="sources-columns">
+        <article class="sources-column-card">
+          <h3>General wildfire references</h3>
+          <ul>
+            <li><a href="https://gis-fema.hub.arcgis.com/pages/wildfires" target="_blank" rel="noopener">FEMA Wildfires GIS Hub ↗</a></li>
+            <li><a href="https://burnseverity.cr.usgs.gov/baer/" target="_blank" rel="noopener">BAER Burn Area Data ↗</a></li>
+            <li><a href="https://commons.wikimedia.org/wiki/Data:2023_Canadian_wildfires_-_season_to_date.map" target="_blank" rel="noopener">2023 Canadian Wildfires Map ↗</a></li>
+          </ul>
+        </article>
+        <article class="sources-column-card">
+          <h3>Bootleg Fire</h3>
+          <ul>
+            <li><a href="https://klamathalerts.com/2021/08/07/klamath-county-fire-update-for-august-7th-2021-bootleg-fire-at-87-percent-containment-new-fires-are-now-lined/" target="_blank" rel="noopener">Klamath Alerts article ↗</a></li>
+            <li><a href="https://www.arcgis.com/home/item.html?id=41c248d3113344d78a680ab02f3e98ce" target="_blank" rel="noopener">2021 Bootleg Fire Perimeter & Burn Severity ↗</a></li>
+            <li><a href="https://www.oregonlive.com/pacific-northwest-news/2021/08/bootleg-fire-once-the-largest-in-the-nation-is-now-fully-contained.html" target="_blank" rel="noopener">The Oregonian article ↗</a></li>
+            <li><a href="https://thatoregonlife.com/2021/07/bootleg-perimeter-now-200-miles-281-thousand-acres-burned/" target="_blank" rel="noopener">That Oregon Life perimeter article ↗</a></li>
+            <li><a href="https://hub.oregonexplorer.info/maps/848594cad4554eb9a1965e744d707494/about" target="_blank" rel="noopener">Oregon Fire Perimeter History ↗</a></li>
+            <li><a href="https://archive.ph/2ewrd" target="_blank" rel="noopener">Bootleg Fire Growth Animation archive ↗</a></li>
+          </ul>
+        </article>
+        <article class="sources-column-card">
+          <h3>Lahaina Fire</h3>
+          <ul>
+            <li><a href="https://ag.hawaii.gov/wp-content/uploads/2024/04/FSRI-Lahaina-Fire-Timeline-Phase-1-Report-Press-Conference-240417.pdf" target="_blank" rel="noopener">Comprehensive report & timeline ↗</a></li>
+            <li><a href="https://riskfrontiers.com/insights/the-august-9-2023-hawaii-wildfires/" target="_blank" rel="noopener">Risk Frontiers assessment ↗</a></li>
+            <li><a href="https://www.nytimes.com/interactive/2023/08/10/us/maui-wildfire-map-hawaii.html" target="_blank" rel="noopener">NYT damage map ↗</a></li>
+            <li><a href="https://www.nytimes.com/2023/08/15/us/hawaii-maui-lahaina-fire.html" target="_blank" rel="noopener">NYT article ↗</a></li>
+            <li><a href="https://www.mauirecovers.org/maps/fire-extent" target="_blank" rel="noopener">Maui Recovers fire extent map ↗</a></li>
+          </ul>
+        </article>
+        <article class="sources-column-card">
+          <h3>Palisades Fire</h3>
+          <ul>
+            <li><a href="https://gis.data.ca.gov/datasets/CALFIRE-Forestry::wfigs-2025-wildfire-perimeters/explore?location=34.074124%2C-118.538600%2C11.88" target="_blank" rel="noopener">WFIGS 2025 wildfire perimeters ↗</a></li>
+            <li><a href="https://hub.arcgis.com/maps/ad51845ea5fb4eb483bc2a7c38b2370c/about" target="_blank" rel="noopener">Palisades and Eaton dissolved perimeters ↗</a></li>
+            <li><a href="https://www.fire.ca.gov/incidents/2025/1/7/palisades-fire" target="_blank" rel="noopener">Cal Fire incident map ↗</a></li>
+            <li><a href="https://www.sfchronicle.com/projects/california-fire-map/palisades-fire-2025" target="_blank" rel="noopener">SF Chronicle fire spread ↗</a></li>
+            <li><a href="https://re-ngfs.ssec.wisc.edu/" target="_blank" rel="noopener">NGFS Fire Detection ↗</a></li>
+          </ul>
+        </article>
+        <article class="sources-column-card">
+          <h3>Cram Fire</h3>
+          <ul>
+            <li><a href="https://re-ngfs.ssec.wisc.edu/" target="_blank" rel="noopener">NGFS Fire Detection ↗</a></li>
+            <li><a href="https://osfminfo.org/crews-making-progress-on-cram-fire-mapped-at-95769-acres/" target="_blank" rel="noopener">Oregon State Fire Marshal update ↗</a></li>
+            <li><a href="https://centraloregonfire.org/2025/07/23/cram-fire-morning-update-wednesday-july-23-2025/" target="_blank" rel="noopener">Central Oregon Fire Info ↗</a></li>
+            <li><a href="https://kcby.com/news/local/cram-fire-grows-to-94293-acres-as-windy-conditions-hamper-firefighting-efforts-jefferson-county-wasco-northwest-interagency-coordination-madras-sheriffs-office" target="_blank" rel="noopener">KCBY local news ↗</a></li>
+            <li><a href="https://inciweb.wildfire.gov/incident-information/orprd-cram-fire" target="_blank" rel="noopener">InciWeb incident information ↗</a></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="sources-section">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">Acknowledgements</span>
+      </div>
+      <div class="sources-ack-grid">
+        <article class="sources-ack-card sources-ack-card--dark">
+          <div class="sources-ack-logo">
+            <img src="https://esto.nasa.gov/wp-content/uploads/2020/02/esto-logo-white.svg" alt="ESTO Logo">
+          </div>
+          <h3>NASA FireSense</h3>
+          <p>National Aeronautics and Space Administration FireSense Research Grant “Wildfire Digital Twin”, Earth Science and Technology Office.</p>
+        </article>
+        <article class="sources-ack-card">
+          <div class="sources-ack-stack">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/NSF_logo.svg/1200px-NSF_logo.svg.png" alt="NSF Logo">
+            <img src="https://orca.pdx.edu/logo.png" alt="ORCA Logo">
+          </div>
+          <h3>NSF & ORCA</h3>
+          <p>National Science Foundation computational support through the Oregon Research Computing Accelerator.</p>
+        </article>
+        <article class="sources-ack-card">
+          <div class="sources-ack-logo">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png" alt="Notion Logo">
+          </div>
+          <h3>Notion</h3>
+          <p>Provided free access to Notion Plus for the group’s planning and project coordination.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+</section>
+{{ end }}
