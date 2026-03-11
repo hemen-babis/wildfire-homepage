@@ -347,14 +347,15 @@ img { max-width: 100%; height: auto; display: block; }
 .wf-nav .has-children { position: relative; }
 .wf-nav .submenu {
   display: none; position: absolute;
-  top: calc(100% + 6px); left: 0; min-width: 230px;
+  top: calc(100% - 2px); left: 0; min-width: 230px;
   padding: 0.35rem; border-radius: var(--r-md);
   border: 1px solid var(--border-solid);
   background: rgba(20, 12, 8, 0.98);
   backdrop-filter: blur(12px);
   box-shadow: 0 12px 40px rgba(0,0,0,0.6); z-index: 100;
 }
-.wf-nav .has-children:hover > .submenu { display: block; }
+.wf-nav .has-children:hover > .submenu,
+.wf-nav .has-children:focus-within > .submenu { display: block; }
 .wf-nav .submenu li { display: block; }
 .wf-nav .submenu a {
   display: block; padding: 0.5rem 0.75rem; border-radius: var(--r-sm);
