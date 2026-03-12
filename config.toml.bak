@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 baseURL = "https://wdt.cecs.pdx.edu/"
+=======
+baseURL = "https://wdt.cecs.pdx.edu/" # Replace with your actual URL
+>>>>>>> 8f70cbd9e1d7bf25441c069cfc9b557c0b379a96
 languageCode = "en-us"
 title = "Wildfire Lab"
 theme = "ananke" # Or any other theme you prefer
