@@ -1,0 +1,40 @@
+{{ define "main" }}
+<section class="methods-page">
+  <div class="wf-shell methods-shell">
+    <header class="methods-hero">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">End-to-End Workflow</span>
+      </div>
+      <h1>{{ .Title }}</h1>
+      <p>
+        Manual pipeline from WPS preprocessing through WRF-SFIRE execution on ORCA — no WRFxPy wrapper required.
+      </p>
+    </header>
+
+    <div class="methods-layout">
+      <aside class="methods-sidebar" aria-label="Guide navigation">
+        <div class="methods-panel">
+          <p class="methods-panel-label">Quick Jump</p>
+          {{ .TableOfContents }}
+        </div>
+        <div class="methods-panel methods-panel--compact">
+          <p class="methods-panel-label">Stages</p>
+          <ul class="methods-mini-list">
+            <li>Environment &amp; directory setup</li>
+            <li>WPS: geogrid → ungrib → metgrid</li>
+            <li>WRF: real.exe → wrf.exe</li>
+            <li>Slurm job monitoring</li>
+          </ul>
+        </div>
+      </aside>
+
+      <article class="methods-article">
+        <section class="article-body methods-body">
+          {{ .Content }}
+        </section>
+      </article>
+    </div>
+  </div>
+</section>
+{{ end }}

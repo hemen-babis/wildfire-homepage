@@ -1130,6 +1130,50 @@ img { max-width: 100%; height: auto; display: block; }
 .article-body code { font-family: var(--font-mono); font-size: 0.87em; background: rgba(255,255,255,0.06); border: 1px solid var(--border-dim); border-radius: 3px; padding: 0.1em 0.4em; color: var(--ember); }
 .article-body pre { background: var(--bg-surface); border: 1px solid var(--border-solid); border-radius: var(--r-md); padding: 1.25rem; overflow-x: auto; margin: 1.5rem 0; }
 .article-body pre code { background: none; border: none; padding: 0; color: var(--text-muted); }
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.8rem 0 2.2rem;
+  font-size: 0.95rem;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--border-solid);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.35);
+}
+.article-body table thead {
+  background: linear-gradient(90deg, rgba(249,115,22,0.18), rgba(249,115,22,0.08));
+  border-bottom: 2px solid var(--border);
+}
+.article-body table th {
+  padding: 0.75rem 1.1rem;
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fire);
+  white-space: nowrap;
+}
+.article-body table td {
+  padding: 0.7rem 1.1rem;
+  border-bottom: 1px solid var(--border-solid);
+  vertical-align: middle;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.article-body table tbody tr:last-child td { border-bottom: none; }
+.article-body table tbody tr:nth-child(odd) { background: rgba(255,255,255,0.025); }
+.article-body table tbody tr:hover { background: rgba(249,115,22,0.05); }
+.article-body table code {
+  font-family: var(--font-mono);
+  font-size: 0.83em;
+  background: rgba(249,115,22,0.1);
+  border: 1px solid rgba(249,115,22,0.2);
+  border-radius: 3px;
+  padding: 0.12em 0.45em;
+  color: var(--ember);
+  white-space: nowrap;
+}
 
 /* =====================================================
    TEAM PAGE
@@ -1710,6 +1754,75 @@ img { max-width: 100%; height: auto; display: block; }
 .methods-body blockquote {
   margin-inline: 0;
 }
+
+/* ── Tables inside methods pages ── */
+.methods-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.8rem 0 2.2rem;
+  font-size: 0.95rem;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  border: 1px solid var(--border-solid);
+  box-shadow: 0 2px 16px rgba(0,0,0,0.35);
+}
+.methods-body table thead {
+  background: linear-gradient(90deg, rgba(249,115,22,0.18), rgba(249,115,22,0.08));
+  border-bottom: 2px solid var(--border);
+}
+.methods-body table th {
+  padding: 0.75rem 1.1rem;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fire);
+  white-space: nowrap;
+}
+.methods-body table td {
+  padding: 0.7rem 1.1rem;
+  border-bottom: 1px solid var(--border-solid);
+  vertical-align: middle;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.methods-body table tbody tr:last-child td {
+  border-bottom: none;
+}
+.methods-body table tbody tr:nth-child(odd) {
+  background: rgba(255,255,255,0.025);
+}
+.methods-body table tbody tr:hover {
+  background: rgba(249,115,22,0.05);
+}
+/* code inside table cells */
+.methods-body table code {
+  font-family: var(--font-mono);
+  font-size: 0.83em;
+  background: rgba(249,115,22,0.1);
+  border: 1px solid rgba(249,115,22,0.2);
+  border-radius: 3px;
+  padding: 0.12em 0.45em;
+  color: var(--ember);
+  white-space: nowrap;
+}
+
+/* light-mode table overrides */
+[data-theme="light"] .methods-body table {
+  border-color: #fed7aa;
+  box-shadow: 0 2px 12px rgba(249,115,22,0.08);
+}
+[data-theme="light"] .methods-body table thead {
+  background: rgba(249,115,22,0.12);
+  border-bottom-color: #fed7aa;
+}
+[data-theme="light"] .methods-body table th { color: #c2410c; }
+[data-theme="light"] .methods-body table td { color: #7c2d12; border-bottom-color: #fed7aa; }
+[data-theme="light"] .methods-body table tbody tr:nth-child(odd) { background: rgba(249,115,22,0.04); }
+[data-theme="light"] .methods-body table tbody tr:hover { background: rgba(249,115,22,0.09); }
+[data-theme="light"] .methods-body table code { background: #ffedd5; border-color: #fed7aa; color: #c2410c; }
 
 [data-theme="light"] .methods-hero,
 [data-theme="light"] .methods-panel,

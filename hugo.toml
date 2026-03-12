@@ -50,6 +50,11 @@ copyright = "Portland State University Wildfire Lab"
     url = "/ai-methods/"
     parent = "methods"
     weight = 30
+  [[menu.main]]
+    name = "WRF-SFIRE End-to-End Workflow"
+    url = "/wrf-sfire-workflow/"
+    parent = "methods"
+    weight = 25
 
   [[menu.main]]
     name = "Sources"
