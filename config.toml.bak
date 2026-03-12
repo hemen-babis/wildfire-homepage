@@ -1,4 +1,4 @@
-baseURL = "https://yourwebsite.com/" # Replace with your actual URL
+baseURL = "https://wdt.cecs.pdx.edu/"
 languageCode = "en-us"
 title = "Wildfire Lab"
 theme = "ananke" # Or any other theme you prefer
