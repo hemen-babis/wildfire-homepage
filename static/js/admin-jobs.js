@@ -11,6 +11,7 @@
   const pendingDeleteState = {};
   const DELETE_DELAY_MS = 8000;
   const POLL_MS = 8000;
+  const loginUrl = new URL("../login/", window.location.href).toString();
 
   const token = localStorage.getItem(TOKEN_KEY);
 
@@ -21,7 +22,7 @@
   };
 
   const redirectToLogin = () => {
-    window.location.href = "/admin/login/";
+    window.location.href = loginUrl;
   };
 
   if (!token) {
