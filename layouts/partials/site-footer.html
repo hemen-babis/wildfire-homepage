@@ -7,11 +7,11 @@
       </div>
 
       <nav class="wf-footer-links" aria-label="Footer navigation">
-        <a href="/team/">Team</a>
-        <a href="/dynamic-site/">Simulations</a>
-        <a href="/dynamical-methods/">WRF‑SFIRE</a>
-        <a href="/ai-methods/">FourCastNet</a>
-        <a href="/sources/">Sources</a>
+        <a href="{{ "team/" | relURL }}">Team</a>
+        <a href="{{ "dynamic-site/" | relURL }}">Simulations</a>
+        <a href="{{ "dynamical-methods/" | relURL }}">WRF‑SFIRE</a>
+        <a href="{{ "ai-methods/" | relURL }}">FourCastNet</a>
+        <a href="{{ "sources/" | relURL }}">Sources</a>
       </nav>
 
       <p>© {{ now.Year }} {{ .Site.Copyright | safeHTML }}</p>

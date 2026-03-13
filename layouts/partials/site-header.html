@@ -10,7 +10,7 @@
 <header class="wf-header">
   <div class="wf-shell wf-nav-shell">
     <a class="wf-brand" href="{{ .Site.Home.RelPermalink }}" aria-label="{{ .Site.Title | default `Wildfire Lab` }} home">
-      <img src="/fire.gif" alt="" aria-hidden="true" style="height:24px;width:auto;background:transparent;border-radius:4px;">
+      <img src="{{ "fire.gif" | relURL }}" alt="" aria-hidden="true" style="height:24px;width:auto;background:transparent;border-radius:4px;">
       <span class="wf-brand-text"><span class="wf-brand-fire">Wild</span>fire Lab</span>
     </a>
 

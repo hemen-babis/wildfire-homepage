@@ -1,6 +1,7 @@
 ---
 title: "WRF-SFIRE End-to-End Workflow"
 description: "Complete end-to-end workflow for running WRF-SFIRE simulations manually via WPS, real.exe, and wrf.exe on ORCA."
+url: "/wrf-sfire-workflow/"
 ---
 
 Complete workflow for generating a WRF-SFIRE wildfire simulation run over a 10 km × 10 km domain: dx=dy=1000 m, 3-day forecast window, WRF history output every 30 minutes (145 timestamps), single SFIRE ignition centered in the domain.

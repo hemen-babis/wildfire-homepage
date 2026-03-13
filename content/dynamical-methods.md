@@ -1,3 +1,9 @@
+---
+title: "WRF + SFIRE Methods"
+description: "How the Wildfire Lab uses WRF-SFIRE and wrfxpy for dynamical wildfire simulation workflows."
+url: "/dynamical-methods/"
+---
+
 # WRF-SFIRE Simulation Guide with WRFxPy
 
 This guide outlines the complete process for creating and running wildfire simulations using wrfxpy with wrf-sfire.

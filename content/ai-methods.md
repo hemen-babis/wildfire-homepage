@@ -1,4 +1,10 @@
 
+---
+title: "FourCastNet Methods"
+description: "How the Wildfire Lab uses FourCastNet for AI-assisted weather and wildfire forecasting."
+url: "/ai-methods/"
+---
+
 # FourCastNet Methods
 
 FourCastNet is a deep learning–based weather forecasting model developed initially by NVIDIA. Unlike traditional numerical models that rely solely on physics-based equations, FCN uses a transformer-style neural network (called Adaptive Fourier Neural Operators, or AFNOs) to learn global atmospheric dynamics directly from reanalysis data. By combining speed with accuracy, FCN can generate weather forecasts orders of magnitude faster than conventional approaches, while maintaining competitive skill scores.
