@@ -3,6 +3,7 @@
 title: "FourCastNet Methods"
 description: "How the Wildfire Lab uses FourCastNet for AI-assisted weather and wildfire forecasting."
 url: "/ai-methods/"
+type: "ai-methods"
 ---
 
 # FourCastNet Methods

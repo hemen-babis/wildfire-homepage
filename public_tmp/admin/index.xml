@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Admins on Wildfire Lab</title>
+    <link>https://wdt.cecs.pdx.edu/admin/</link>
+    <description>Recent content in Admins on Wildfire Lab</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <copyright>Portland State University Wildfire Lab</copyright>
+    <atom:link href="https://wdt.cecs.pdx.edu/admin/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Admin Jobs</title>
+      <link>https://wdt.cecs.pdx.edu/admin/jobs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://wdt.cecs.pdx.edu/admin/jobs/</guid>
+      <description>&lt;div class=&#34;wf-shell&#34;&gt;&#xA;  &lt;section class=&#34;wf-card wf-admin-card&#34;&gt;&#xA;    &lt;div class=&#34;wf-admin-header&#34;&gt;&#xA;      &lt;div&gt;&#xA;        &lt;p class=&#34;wf-eyebrow&#34;&gt;Admin Console&lt;/p&gt;&#xA;        &lt;h1&gt;Submitted Fire Jobs&lt;/h1&gt;&#xA;      &lt;/div&gt;&#xA;      &lt;div class=&#34;wf-admin-controls&#34;&gt;&#xA;        &lt;button id=&#34;admin-refresh&#34; type=&#34;button&#34; class=&#34;wf-btn-ghost&#34;&gt;Refresh&lt;/button&gt;&#xA;        &lt;button id=&#34;admin-logout&#34; type=&#34;button&#34; class=&#34;wf-btn-ghost&#34;&gt;Log Out&lt;/button&gt;&#xA;      &lt;/div&gt;&#xA;    &lt;/div&gt;&#xA;&#xA;    &lt;p class=&#34;wf-subtext&#34;&gt;This page is hidden from public navigation and requires admin authentication.&lt;/p&gt;&#xA;    &lt;p id=&#34;admin-jobs-message&#34; class=&#34;wf-message&#34; role=&#34;status&#34; aria-live=&#34;polite&#34;&gt;&lt;/p&gt;&#xA;&#xA;    &lt;div id=&#34;admin-jobs-table&#34; class=&#34;wf-table-shell&#34;&gt;&lt;/div&gt;&#xA;  &lt;/section&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&lt;script src=&#34;../../js/admin-jobs.js&#34; defer&gt;&lt;/script&gt;</description>
+    </item>
+    <item>
+      <title>Admin Login</title>
+      <link>https://wdt.cecs.pdx.edu/admin/login/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://wdt.cecs.pdx.edu/admin/login/</guid>
+      <description>&lt;div class=&#34;wf-shell&#34;&gt;&#xA;  &lt;section class=&#34;wf-card wf-auth-card&#34;&gt;&#xA;    &lt;p class=&#34;wf-eyebrow&#34;&gt;Restricted Access&lt;/p&gt;&#xA;    &lt;h1&gt;Admin Login&lt;/h1&gt;&#xA;    &lt;p class=&#34;wf-subtext&#34;&gt;Only authorized admins can view and manage submitted jobs.&lt;/p&gt;&#xA;&#xA;    &lt;form id=&#34;admin-login-form&#34; class=&#34;wf-form&#34;&gt;&#xA;      &lt;label for=&#34;admin-username&#34;&gt;Username&lt;/label&gt;&#xA;      &lt;input id=&#34;admin-username&#34; name=&#34;username&#34; type=&#34;text&#34; autocomplete=&#34;username&#34; required&gt;&#xA;&#xA;      &lt;label for=&#34;admin-password&#34;&gt;Password&lt;/label&gt;&#xA;      &lt;input id=&#34;admin-password&#34; name=&#34;password&#34; type=&#34;password&#34; autocomplete=&#34;current-password&#34; required&gt;&#xA;&#xA;      &lt;button type=&#34;submit&#34; class=&#34;wf-btn-primary&#34;&gt;Sign In&lt;/button&gt;&#xA;      &lt;p id=&#34;admin-login-message&#34; class=&#34;wf-message&#34; role=&#34;status&#34; aria-live=&#34;polite&#34;&gt;&lt;/p&gt;&#xA;    &lt;/form&gt;&#xA;  &lt;/section&gt;&#xA;&lt;/div&gt;&#xA;&#xA;&lt;script src=&#34;../../js/admin-login.js&#34; defer&gt;&lt;/script&gt;</description>
+    </item>
+  </channel>
+</rss>

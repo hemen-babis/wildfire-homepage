@@ -2,28 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yourwebsite.com/</loc>
+    <loc>https://wdt.cecs.pdx.edu/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/ai-methods/</loc>
+    <loc>https://wdt.cecs.pdx.edu/wildfire-twin/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/dynamic-site/</loc>
+    <loc>https://wdt.cecs.pdx.edu/admin/jobs/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/dynamical-methods/</loc>
+    <loc>https://wdt.cecs.pdx.edu/admin/login/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/wildfire-twin/</loc>
+    <loc>https://wdt.cecs.pdx.edu/admin/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/categories/</loc>
+    <loc>https://wdt.cecs.pdx.edu/categories/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/model-update/</loc>
+    <loc>https://wdt.cecs.pdx.edu/ai-methods/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/dynamic-site/ignition-portal/</loc>
+    <loc>https://wdt.cecs.pdx.edu/dynamic-site/ignition-portal/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/bypass_index/</loc>
+    <loc>https://wdt.cecs.pdx.edu/sources/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/sources/</loc>
+    <loc>https://wdt.cecs.pdx.edu/tags/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/tags/</loc>
+    <loc>https://wdt.cecs.pdx.edu/team/</loc>
   </url><url>
-    <loc>https://yourwebsite.com/team/</loc>
+    <loc>https://wdt.cecs.pdx.edu/dynamic-site/</loc>
+  </url><url>
+    <loc>https://wdt.cecs.pdx.edu/dynamical-methods/</loc>
+  </url><url>
+    <loc>https://wdt.cecs.pdx.edu/wrf-sfire-workflow/</loc>
   </url>
 </urlset>

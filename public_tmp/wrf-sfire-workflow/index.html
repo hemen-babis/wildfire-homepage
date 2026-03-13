@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>WRF-SFIRE End-to-End Workflow | Wildfire Lab</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="Complete end-to-end workflow for running WRF-SFIRE simulations manually via WPS, real.exe, and wrf.exe on ORCA.">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    <meta property="og:url" content="https://wdt.cecs.pdx.edu/wrf-sfire-workflow/">
+  <meta property="og:site_name" content="Wildfire Lab">
+  <meta property="og:title" content="WRF-SFIRE End-to-End Workflow">
+  <meta property="og:description" content="Complete end-to-end workflow for running WRF-SFIRE simulations manually via WPS, real.exe, and wrf.exe on ORCA.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+
+  <meta itemprop="name" content="WRF-SFIRE End-to-End Workflow">
+  <meta itemprop="description" content="Complete end-to-end workflow for running WRF-SFIRE simulations manually via WPS, real.exe, and wrf.exe on ORCA.">
+  <meta itemprop="wordCount" content="1009">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="WRF-SFIRE End-to-End Workflow">
+  <meta name="twitter:description" content="Complete end-to-end workflow for running WRF-SFIRE simulations manually via WPS, real.exe, and wrf.exe on ORCA.">
+
+<link rel="stylesheet" href="/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+  
+    <link rel="stylesheet" href="/css/custom.css">
+  
+
+
+    
+
+    
+
+    
+  </head>
+  <body>
+    <script>
+  (function () {
+    var saved = localStorage.getItem('wf-theme');
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+
+<header class="wf-header">
+  <div class="wf-shell wf-nav-shell">
+    <a class="wf-brand" href="/" aria-label="Wildfire Lab home">
+      <img src="/fire.gif" alt="" aria-hidden="true" style="height:24px;width:auto;background:transparent;border-radius:4px;">
+      <span class="wf-brand-text"><span class="wf-brand-fire">Wild</span>fire Lab</span>
+    </a>
+
+    <div class="wf-header-actions">
+      <button class="wf-theme-toggle" type="button" aria-label="Toggle light/dark mode" title="Toggle theme">
+        <span class="wf-theme-icon wf-theme-icon--dark">🌙</span>
+        <span class="wf-theme-icon wf-theme-icon--light">☀️</span>
+      </button>
+
+      <button class="wf-nav-toggle" type="button" aria-expanded="false" aria-controls="wf-nav-menu" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle menu</span>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="wf-nav" id="wf-nav-menu" aria-label="Primary">
+      
+        <ul>
+          
+            <li>
+              <a href="/">Project Description</a>
+              
+            </li>
+          
+            <li>
+              <a href="/team/">Team Members</a>
+              
+            </li>
+          
+            <li class="has-children">
+              <a href="/dynamic-site/">Wildfire Simulations</a>
+              
+                <ul class="submenu">
+                  
+                    <li><a href="/dynamic-site/ignition-portal/">Ignition Request Portal (Concept UI)</a></li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="has-children">
+              <a href="/wildfire-twin/">Methods &amp; Models</a>
+              
+                <ul class="submenu">
+                  
+                    <li><a href="/wildfire-twin/">Climate Models Overview</a></li>
+                  
+                    <li><a href="/dynamical-methods/">WRF &#43; SFIRE Methods</a></li>
+                  
+                    <li><a href="/wrf-sfire-workflow/">WRF-SFIRE End-to-End Workflow</a></li>
+                  
+                    <li><a href="/ai-methods/">FourCastNet Methods</a></li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/sources/">Sources</a>
+              
+            </li>
+          
+        </ul>
+      
+    </nav>
+  </div>
+</header>
+
+<script>
+  (function () {
+    var header = document.querySelector('.wf-header');
+    if (!header) return;
+
+    var toggle    = header.querySelector('.wf-nav-toggle');
+    var nav       = header.querySelector('.wf-nav');
+    var themeBtn  = header.querySelector('.wf-theme-toggle');
+
+     
+    if (toggle && nav) {
+      Array.prototype.forEach.call(nav.querySelectorAll('.has-children'), function (item, index) {
+        var link = item.querySelector(':scope > a');
+        var submenu = item.querySelector(':scope > .submenu');
+        if (!link || !submenu) return;
+
+        submenu.id = submenu.id || ('wf-submenu-' + index);
+
+        var submenuToggle = document.createElement('button');
+        submenuToggle.className = 'wf-submenu-toggle';
+        submenuToggle.type = 'button';
+        submenuToggle.setAttribute('aria-expanded', 'false');
+        submenuToggle.setAttribute('aria-controls', submenu.id);
+        submenuToggle.setAttribute('aria-label', 'Toggle submenu for ' + link.textContent.trim());
+        submenuToggle.innerHTML = '<span aria-hidden="true">+</span>';
+        item.insertBefore(submenuToggle, submenu);
+
+        submenuToggle.addEventListener('click', function (event) {
+          if (window.innerWidth > 900) return;
+          event.preventDefault();
+          var open = item.classList.toggle('is-expanded');
+          submenuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      });
+
+      toggle.addEventListener('click', function () {
+        var open = header.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      nav.addEventListener('click', function (event) {
+        var link = event.target.closest('a');
+        if (!link || window.innerWidth > 900) return;
+        header.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 900) {
+          header.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          Array.prototype.forEach.call(nav.querySelectorAll('.has-children.is-expanded'), function (item) {
+            item.classList.remove('is-expanded');
+            var submenuToggle = item.querySelector(':scope > .wf-submenu-toggle');
+            if (submenuToggle) submenuToggle.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+    }
+
+     
+    window.addEventListener('scroll', function () {
+      header.classList.toggle('scrolled', window.scrollY > 24);
+    }, { passive: true });
+
+     
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function () {
+        var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        if (isLight) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('wf-theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('wf-theme', 'light');
+        }
+      });
+    }
+  })();
+</script>
+
+    <main role="main">
+      
+<section class="methods-page">
+  <div class="wf-shell methods-shell">
+    <header class="methods-hero">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">End-to-End Workflow</span>
+      </div>
+      <h1>WRF-SFIRE End-to-End Workflow</h1>
+      <p>
+        Manual pipeline from WPS preprocessing through WRF-SFIRE execution on ORCA — no WRFxPy wrapper required.
+      </p>
+    </header>
+
+    <div class="methods-layout">
+      <aside class="methods-sidebar" aria-label="Guide navigation">
+        <div class="methods-panel">
+          <p class="methods-panel-label">Quick Jump</p>
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#0-quick-glossary">0. Quick Glossary</a></li>
+    <li><a href="#1-environment-setup-orca-runtime">1. Environment Setup (ORCA runtime)</a></li>
+    <li><a href="#2-example-directory-layout">2. Example Directory Layout</a></li>
+    <li><a href="#3-wps-preprocessing">3. WPS Preprocessing</a>
+      <ul>
+        <li><a href="#30-create-and-enter-your-wps-run-directory">3.0 Create and enter your WPS run directory</a></li>
+        <li><a href="#31-geogridexe">3.1 geogrid.exe</a></li>
+        <li><a href="#32-ungribexe">3.2 ungrib.exe</a></li>
+        <li><a href="#33-metgridexe">3.3 metgrid.exe</a></li>
+        <li><a href="#34-wps-completion-checklist">3.4 WPS Completion Checklist</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-wrf--wrf-sfire-setup">4. WRF / WRF-SFIRE Setup</a>
+      <ul>
+        <li><a href="#41-create-and-enter-the-wrf-run-directory">4.1 Create and enter the WRF run directory</a></li>
+        <li><a href="#42-load-modules-and-set-exports">4.2 Load modules and set exports</a></li>
+        <li><a href="#43-link-wps-met_em-files">4.3 Link WPS met_em files</a></li>
+        <li><a href="#44-link-wrf-executables">4.4 Link WRF executables</a></li>
+        <li><a href="#45-copy-namelist-and-create-logs-directory">4.5 Copy namelist and create logs directory</a></li>
+      </ul>
+    </li>
+    <li><a href="#5-realexe">5. real.exe</a></li>
+    <li><a href="#6-wrfexe-wrf-sfire-simulation">6. wrf.exe (WRF-SFIRE simulation)</a></li>
+    <li><a href="#7-slurm-monitoring">7. Slurm Monitoring</a></li>
+  </ul>
+</nav>
+        </div>
+        <div class="methods-panel methods-panel--compact">
+          <p class="methods-panel-label">Stages</p>
+          <ul class="methods-mini-list">
+            <li>Environment &amp; directory setup</li>
+            <li>WPS: geogrid → ungrib → metgrid</li>
+            <li>WRF: real.exe → wrf.exe</li>
+            <li>Slurm job monitoring</li>
+          </ul>
+        </div>
+      </aside>
+
+      <article class="methods-article">
+        <section class="article-body methods-body">
+          <p>Complete workflow for generating a WRF-SFIRE wildfire simulation run over a 10 km × 10 km domain: dx=dy=1000 m, 3-day forecast window, WRF history output every 30 minutes (145 timestamps), single SFIRE ignition centered in the domain.</p>
+<blockquote>
+<p><strong>Note:</strong> Replace placeholder values like <code>&lt;TAG&gt;</code>, <code>&lt;PATH&gt;</code>, <code>&lt;DATE&gt;</code>, <code>&lt;group&gt;</code>, <code>&lt;user&gt;</code> with your actual run values. All commands assume you are inside the correct run directory for that stage.</p>
+</blockquote>
+<h2 id="0-quick-glossary">0. Quick Glossary</h2>
+<p><strong>WPS outputs</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Executable</th>
+          <th>Produces</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>geogrid.exe</code></td>
+          <td><code>geo_em.d0*.nc</code></td>
+          <td>Static domain: terrain, landuse, etc.</td>
+      </tr>
+      <tr>
+          <td><code>ungrib.exe</code></td>
+          <td><code>FILE:*</code></td>
+          <td>Decoded meteorology from GRIB → WPS intermediate</td>
+      </tr>
+      <tr>
+          <td><code>metgrid.exe</code></td>
+          <td><code>met_em.d0*.&lt;YYYY-MM-DD_HH:MM:SS&gt;.nc</code></td>
+          <td>Forcing interpolated to your domain</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>WRF/WRF-SFIRE outputs</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Executable</th>
+          <th>Produces</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>real.exe</code></td>
+          <td><code>wrfinput_d0*</code>, <code>wrfbdy_d01</code></td>
+          <td>Initial and boundary conditions</td>
+      </tr>
+      <tr>
+          <td><code>wrf.exe</code></td>
+          <td><code>wrfout_d0*_*</code></td>
+          <td>Model outputs</td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<h2 id="1-environment-setup-orca-runtime">1. Environment Setup (ORCA runtime)</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>module purge
+</span></span><span style="display:flex;"><span>module load gcc
+</span></span><span style="display:flex;"><span>module load openmpi
+</span></span></code></pre></div><p><strong>1.2 — NetCDF and compression libraries (Jasper / PNG / Zlib)</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export LD_LIBRARY_PATH<span style="color:#f92672">=</span>$HOME/libs/netcdf/lib:$HOME/libs/jasper/lib64:$LD_LIBRARY_PATH
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$HOME/libs/netcdf/bin:$PATH   <span style="color:#75715e"># makes ncdump available</span>
+</span></span></code></pre></div><p><strong>1.3 — Define code locations (WPS and WRF)</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>export WPS_DIR<span style="color:#f92672">=</span>$HOME/wrf_sfire/WPS_clean/WPS-4.6.0
+</span></span><span style="display:flex;"><span>export WRF_DIR<span style="color:#f92672">=</span>$HOME/wrf_sfire/WRF
+</span></span></code></pre></div><hr>
+<h2 id="2-example-directory-layout">2. Example Directory Layout</h2>
+<pre tabindex="0"><code>$HOME/wrf_sfire/
+  WPS_clean/WPS-4.6.0/     # built WPS
+  WRF/                     # built WRF-SFIRE
+  libs/netcdf/             # NetCDF libraries
+  libs/jasper/             # Jasper (+ png/zlib) libraries
+
+/scratch/&lt;group&gt;/&lt;user&gt;/
+  WPS_RUN_&lt;TAG&gt;/           # WPS run dir  (geo_em, FILE:, met_em)
+  WRF_RUN_&lt;TAG&gt;/           # WRF run dir  (wrfinput, wrfbdy, wrfout)
+</code></pre><hr>
+<h2 id="3-wps-preprocessing">3. WPS Preprocessing</h2>
+<h3 id="30-create-and-enter-your-wps-run-directory">3.0 Create and enter your WPS run directory</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p /scratch/&lt;group&gt;/&lt;user&gt;/WPS_RUN_&lt;TAG&gt;
+</span></span><span style="display:flex;"><span>cd /scratch/&lt;group&gt;/&lt;user&gt;/WPS_RUN_&lt;TAG&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Copy your namelist</span>
+</span></span><span style="display:flex;"><span>cp -p &lt;PATH_TO_YOUR_NAMELIST&gt;/namelist.wps .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Symlink executables</span>
+</span></span><span style="display:flex;"><span>ln -sf $WPS_DIR/geogrid/src/geogrid.exe .
+</span></span><span style="display:flex;"><span>ln -sf $WPS_DIR/ungrib/src/ungrib.exe .
+</span></span><span style="display:flex;"><span>ln -sf $WPS_DIR/metgrid/src/metgrid.exe .
+</span></span><span style="display:flex;"><span>ln -sf $WPS_DIR/link_grib.csh .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Verify</span>
+</span></span><span style="display:flex;"><span>ls -l geogrid.exe ungrib.exe metgrid.exe link_grib.csh namelist.wps
+</span></span></code></pre></div><h3 id="31-geogridexe">3.1 geogrid.exe</h3>
+<p><strong>What it does:</strong> Reads <code>namelist.wps</code> and the GEOG dataset and creates <code>geo_em.d01.nc</code> (terrain height, landuse, soil type, etc.).</p>
+<p><strong>Verify key namelist settings:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -nE <span style="color:#e6db74">&#34;max_dom|dx|dy|e_we|e_sn|map_proj|ref_lat|ref_lon|truelat1|truelat2|stand_lon|geog_data_path|start_date|end_date&#34;</span> namelist.wps
+</span></span></code></pre></div><p><strong>Run:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm -f geo_em.d0*.nc geogrid.log
+</span></span><span style="display:flex;"><span>./geogrid.exe |&amp; tee geogrid.log
+</span></span></code></pre></div><p><strong>Validate:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -lh geo_em.d0*.nc
+</span></span><span style="display:flex;"><span>tail -n <span style="color:#ae81ff">60</span> geogrid.log
+</span></span></code></pre></div><p>Expected: log ends with a success message and <code>geo_em.d0*.nc</code> files are present.</p>
+<p><strong>Common failures:</strong></p>
+<table>
+  <thead>
+      <tr>
+          <th>Symptom</th>
+          <th>Fix</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Wrong <code>geog_data_path</code></td>
+          <td>Fix the path in <code>namelist.wps</code></td>
+      </tr>
+      <tr>
+          <td>GEOG dataset missing/corrupt</td>
+          <td>Confirm directory exists with expected subfolders</td>
+      </tr>
+      <tr>
+          <td>Projection mismatch</td>
+          <td>Ensure <code>map_proj</code> and lat/lon match your intended domain</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="32-ungribexe">3.2 ungrib.exe</h3>
+<p><strong>What it does:</strong> Converts GRIB meteorology (e.g., GFS) into WPS intermediate files (<code>FILE:YYYY-MM-DD_HH</code>), later consumed by metgrid.</p>
+<p><strong>Choose and link the correct Vtable:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># For GFS:</span>
+</span></span><span style="display:flex;"><span>ln -sf $WPS_DIR/ungrib/Variable_Tables/Vtable.GFS Vtable
+</span></span></code></pre></div><p><strong>Link GRIB files:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Adjust pattern to your GRIB naming</span>
+</span></span><span style="display:flex;"><span>./link_grib.csh /path/to/grib/files/gfs*.f*
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check GRIBFILE links</span>
+</span></span><span style="display:flex;"><span>ls -1 GRIBFILE.* | head -n <span style="color:#ae81ff">20</span>
+</span></span></code></pre></div><p><strong>Run:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./ungrib.exe |&amp; tee ungrib.log
+</span></span></code></pre></div><p><strong>Validate:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -1 FILE:* | head -n <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>tail -n <span style="color:#ae81ff">80</span> ungrib.log
+</span></span></code></pre></div><p><strong>Common failures:</strong></p>
+<p><strong>A) Missing runtime libraries (Jasper/PNG)</strong></p>
+<pre tabindex="0"><code>error while loading shared libraries: libjasper.so...
+</code></pre><p>Fix: <code>export LD_LIBRARY_PATH=$HOME/libs/jasper/lib64:$LD_LIBRARY_PATH</code></p>
+<p><strong>B) w3 / g2 link errors during WPS build</strong></p>
+<p>If ungrib fails to link w3/g2, create symlinks so ungrib finds the libraries:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd $WPS_DIR/ungrib/src/ngl
+</span></span><span style="display:flex;"><span>ln -sf w3/libw3.a   libw3.a
+</span></span><span style="display:flex;"><span>ln -sf g2/libg2_4.a libg2_4.a
+</span></span></code></pre></div><p>Then rebuild WPS.</p>
+<p><strong>C) Wrong Vtable for your GRIB source</strong> — ungrib runs but produces incomplete or empty outputs. Pick the correct <code>Vtable.*</code> for your dataset (GFS vs ERA5 vs NAM, etc.).</p>
+<h3 id="33-metgridexe">3.3 metgrid.exe</h3>
+<p><strong>What it does:</strong> Combines <code>geo_em.d0*.nc</code> (from geogrid) + <code>FILE:*</code> (from ungrib) → <code>met_em.d0*.&lt;timestamp&gt;.nc</code>, which <code>real.exe</code> consumes.</p>
+<p><strong>Ensure METGRID.TBL is present:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ln -sf $WPS_DIR/metgrid/METGRID.TBL METGRID.TBL
+</span></span><span style="display:flex;"><span>ls -l METGRID.TBL
+</span></span></code></pre></div><p><strong>Run:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm -f met_em.d0*.nc metgrid.log
+</span></span><span style="display:flex;"><span>./metgrid.exe |&amp; tee metgrid.log
+</span></span></code></pre></div><p><strong>Validate:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -lh met_em.d0*.nc | head
+</span></span><span style="display:flex;"><span>tail -n <span style="color:#ae81ff">80</span> metgrid.log
+</span></span></code></pre></div><p>You should see <code>met_em.d01.&lt;YYYY-MM-DD_HH:MM:SS&gt;.nc</code> files spanning your forecast window.</p>
+<h3 id="34-wps-completion-checklist">3.4 WPS Completion Checklist</h3>
+<p>Before moving on to WRF, confirm all of these exist:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -1 geo_em.d0*.nc          <span style="color:#75715e"># geogrid outputs</span>
+</span></span><span style="display:flex;"><span>ls -1 FILE:* | head           <span style="color:#75715e"># ungrib outputs</span>
+</span></span><span style="display:flex;"><span>ls -1 met_em.d0*.nc | head   <span style="color:#75715e"># metgrid outputs</span>
+</span></span><span style="display:flex;"><span>ls -1 geogrid.log ungrib.log metgrid.log  <span style="color:#75715e"># logs</span>
+</span></span></code></pre></div><p>Do not proceed to WRF until all files are present.</p>
+<hr>
+<h2 id="4-wrf--wrf-sfire-setup">4. WRF / WRF-SFIRE Setup</h2>
+<h3 id="41-create-and-enter-the-wrf-run-directory">4.1 Create and enter the WRF run directory</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir -p /scratch/&lt;group&gt;/&lt;user&gt;/WRF_RUN_&lt;TAG&gt;
+</span></span><span style="display:flex;"><span>cd /scratch/&lt;group&gt;/&lt;user&gt;/WRF_RUN_&lt;TAG&gt;
+</span></span></code></pre></div><p>Expected structure inside <code>WRF_RUN_&lt;TAG&gt;/</code>:</p>
+<pre tabindex="0"><code>namelist.input
+met_em.d01.*.nc        (symlinked from WPS run)
+real.exe               (symlink)
+wrf.exe                (symlink)
+logs/
+rsl.out.0000, rsl.error.0000, ...
+wrfinput_d01
+wrfbdy_d01
+wrfout_d01_YYYY-MM-DD_HH:MM:SS
+</code></pre><h3 id="42-load-modules-and-set-exports">4.2 Load modules and set exports</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>module purge
+</span></span><span style="display:flex;"><span>module load gcc
+</span></span><span style="display:flex;"><span>module load openmpi
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export LD_LIBRARY_PATH<span style="color:#f92672">=</span>$HOME/libs/netcdf/lib:$HOME/libs/jasper/lib64:$LD_LIBRARY_PATH
+</span></span><span style="display:flex;"><span>export PATH<span style="color:#f92672">=</span>$HOME/libs/netcdf/bin:$PATH
+</span></span><span style="display:flex;"><span>export WRF_DIR<span style="color:#f92672">=</span>$HOME/wrf_sfire/WRF
+</span></span></code></pre></div><h3 id="43-link-wps-met_em-files">4.3 Link WPS met_em files</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ln -sf /scratch/&lt;group&gt;/&lt;user&gt;/WPS_RUN_&lt;TAG&gt;/met_em.d0*.nc .
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Confirm</span>
+</span></span><span style="display:flex;"><span>ls -1 met_em.d01.*.nc | head
+</span></span><span style="display:flex;"><span>ls -1 met_em.d01.*.nc | tail
+</span></span></code></pre></div><h3 id="44-link-wrf-executables">4.4 Link WRF executables</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ln -sf $WRF_DIR/main/real.exe .
+</span></span><span style="display:flex;"><span>ln -sf $WRF_DIR/main/wrf.exe .
+</span></span></code></pre></div><h3 id="45-copy-namelist-and-create-logs-directory">4.5 Copy namelist and create logs directory</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cp -p &lt;PATH_TO_YOUR_NAMELIST&gt;/namelist.input .
+</span></span><span style="display:flex;"><span>mkdir -p logs
+</span></span></code></pre></div><hr>
+<h2 id="5-realexe">5. real.exe</h2>
+<p><strong>What it does:</strong> Converts WPS forcing files (<code>met_em*</code>) into:</p>
+<ul>
+<li><code>wrfinput_d01</code> — initial conditions</li>
+<li><code>wrfbdy_d01</code> — boundary conditions</li>
+</ul>
+<p>If <code>real.exe</code> fails, the answer is almost always in <code>rsl.error.0000</code>.</p>
+<p><strong>Clean old outputs:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm -f wrfinput_d0* wrfbdy_d0* rsl.out.* rsl.error.*
+</span></span><span style="display:flex;"><span>rm -f logs/real.log
+</span></span></code></pre></div><p><strong>Run:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./real.exe |&amp; tee logs/real.log
+</span></span></code></pre></div><p><strong>Validate:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -lh wrfinput_d01 wrfbdy_d01
+</span></span><span style="display:flex;"><span>tail -n <span style="color:#ae81ff">80</span> logs/real.log
+</span></span></code></pre></div><p><strong>If it fails:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -1 rsl.error.* | head
+</span></span><span style="display:flex;"><span>tail -n <span style="color:#ae81ff">120</span> rsl.error.0000
+</span></span></code></pre></div><p><strong>Confirm your run matches requirements:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>grep -nE <span style="color:#e6db74">&#34;run_(days|hours|minutes|seconds)|start_(year|month|day|hour)|end_(year|month|day|hour)|history_interval|frames_per_outfile|time_step&#34;</span> namelist.input
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>grep -nE <span style="color:#e6db74">&#34;max_dom|e_we|e_sn|dx|dy|map_proj|ref_lat|ref_lon|truelat1|truelat2|stand_lon&#34;</span> namelist.input
+</span></span></code></pre></div><hr>
+<h2 id="6-wrfexe-wrf-sfire-simulation">6. wrf.exe (WRF-SFIRE simulation)</h2>
+<p><strong>What it does:</strong> Runs the full atmospheric model with SFIRE enabled. Advances the fire-spread model alongside the atmospheric simulation.</p>
+<p>Produces: <code>wrfout_d01_YYYY-MM-DD_HH:MM:SS</code> — one file per <code>history_interval</code> minutes. For <code>history_interval = 30</code> over a 3-day run, expect 145 output files.</p>
+<p><strong>Clean old outputs:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>rm -f rsl.out.* rsl.error.*
+</span></span><span style="display:flex;"><span>rm -f logs/wrf.log
+</span></span><span style="display:flex;"><span>rm -f wrfout_d0*   <span style="color:#75715e"># only if OK with deleting prior outputs</span>
+</span></span></code></pre></div><p><strong>Run:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>./wrf.exe |&amp; tee logs/wrf.log
+</span></span></code></pre></div><p><strong>Monitor progress while running:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tail -f logs/wrf.log
+</span></span><span style="display:flex;"><span>ls -lt wrfout_d01_* | head
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check timestep progress without tailing full log</span>
+</span></span><span style="display:flex;"><span>grep -n <span style="color:#e6db74">&#34;Timing for main&#34;</span> logs/wrf.log | tail
+</span></span></code></pre></div><p><strong>Validate output after completion:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Count output files</span>
+</span></span><span style="display:flex;"><span>ls -1 wrfout_d01_* | wc -l
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check first and last timestamps</span>
+</span></span><span style="display:flex;"><span>ls -1 wrfout_d01_* | head -n <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>ls -1 wrfout_d01_* | tail -n <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Inspect times inside a file (NetCDF)</span>
+</span></span><span style="display:flex;"><span>f<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>ls -1 wrfout_d01_* | head -n 1<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>ncdump -v Times <span style="color:#e6db74">&#34;</span>$f<span style="color:#e6db74">&#34;</span> | sed -n <span style="color:#e6db74">&#39;1,35p&#39;</span>
+</span></span></code></pre></div><p><strong>If wrf.exe fails:</strong></p>
+<ol>
+<li>Check the first error file:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tail -n <span style="color:#ae81ff">200</span> rsl.error.0000
+</span></span></code></pre></div><ol start="2">
+<li>
+<p>Check for missing input/boundary:</p>
+<ul>
+<li><code>wrfinput_d01</code> missing → <code>real.exe</code> did not complete</li>
+<li><code>wrfbdy_d01</code> missing → <code>real.exe</code> did not complete</li>
+</ul>
+</li>
+<li>
+<p>Check your forcing set:</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ls -1 met_em.d01.*.nc | head
+</span></span></code></pre></div><ol start="4">
+<li>Confirm library paths:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ldd ./wrf.exe | head
+</span></span></code></pre></div><hr>
+<h2 id="7-slurm-monitoring">7. Slurm Monitoring</h2>
+<p><strong>Submit and capture job ID:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>jid<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sbatch --parsable &lt;your_job&gt;.slurm<span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;JOBID=</span>$jid<span style="color:#e6db74">&#34;</span>
+</span></span></code></pre></div><p><strong>Monitor:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>squeue -j <span style="color:#e6db74">&#34;</span>$jid<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>sacct -j <span style="color:#e6db74">&#34;</span>$jid<span style="color:#e6db74">&#34;</span> --format<span style="color:#f92672">=</span>JobID,JobName,State,ExitCode,Elapsed,Timelimit -n
+</span></span></code></pre></div><p><strong>Tail logs:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tail -F logs/wrf.log
+</span></span></code></pre></div>
+        </section>
+      </article>
+    </div>
+  </div>
+</section>
+
+    </main>
+    <footer class="wf-footer">
+  <div class="wf-shell">
+    <div class="wf-footer-inner">
+      <div class="wf-footer-brand">
+        <span class="wf-footer-name"><span class="fire">Wild</span>fire Lab</span>
+        <span class="wf-footer-sub">Portland State University - Capstone 2025-26</span>
+      </div>
+
+      <nav class="wf-footer-links" aria-label="Footer navigation">
+        <a href="/team/">Team</a>
+        <a href="/dynamic-site/">Simulations</a>
+        <a href="/dynamical-methods/">WRF‑SFIRE</a>
+        <a href="/ai-methods/">FourCastNet</a>
+        <a href="/sources/">Sources</a>
+      </nav>
+
+      <p>© 2026 Portland State University Wildfire Lab</p>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>

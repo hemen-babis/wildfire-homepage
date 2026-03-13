@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Admin Login | Wildfire Lab</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="description" content="
+  
+    Restricted Access
+    Admin Login
+    Only authorized admins can view and manage submitted jobs.
+
+    
+      Username
+      
+
+      Password
+      
+
+      Sign In
+      
+    
+  
+
+
+">
+    <meta name="generator" content="Hugo 0.152.2">
+    
+    
+    
+      <meta name="robots" content="index, follow">
+    <meta property="og:url" content="https://wdt.cecs.pdx.edu/admin/login/">
+  <meta property="og:site_name" content="Wildfire Lab">
+  <meta property="og:title" content="Admin Login">
+  <meta property="og:description" content="Restricted Access
+Admin Login Only authorized admins can view and manage submitted jobs.
+Username Password Sign In">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="admin">
+
+  <meta itemprop="name" content="Admin Login">
+  <meta itemprop="description" content="Restricted Access
+Admin Login Only authorized admins can view and manage submitted jobs.
+Username Password Sign In">
+  <meta itemprop="wordCount" content="17">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Admin Login">
+  <meta name="twitter:description" content="Restricted Access
+Admin Login Only authorized admins can view and manage submitted jobs.
+Username Password Sign In">
+
+<link rel="stylesheet" href="/ananke/css/main.min.efe4d852f731d5d1fbb87718387202a97aafd768cdcdaed0662bbe6982e91824.css" >
+
+
+
+  
+    <link rel="stylesheet" href="/css/custom.css">
+  
+
+
+    
+
+    
+
+    
+  </head>
+  <body>
+    <script>
+  (function () {
+    var saved = localStorage.getItem('wf-theme');
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  })();
+</script>
+
+<header class="wf-header">
+  <div class="wf-shell wf-nav-shell">
+    <a class="wf-brand" href="/" aria-label="Wildfire Lab home">
+      <img src="/fire.gif" alt="" aria-hidden="true" style="height:24px;width:auto;background:transparent;border-radius:4px;">
+      <span class="wf-brand-text"><span class="wf-brand-fire">Wild</span>fire Lab</span>
+    </a>
+
+    <div class="wf-header-actions">
+      <button class="wf-theme-toggle" type="button" aria-label="Toggle light/dark mode" title="Toggle theme">
+        <span class="wf-theme-icon wf-theme-icon--dark">🌙</span>
+        <span class="wf-theme-icon wf-theme-icon--light">☀️</span>
+      </button>
+
+      <button class="wf-nav-toggle" type="button" aria-expanded="false" aria-controls="wf-nav-menu" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle menu</span>
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <nav class="wf-nav" id="wf-nav-menu" aria-label="Primary">
+      
+        <ul>
+          
+            <li>
+              <a href="/">Project Description</a>
+              
+            </li>
+          
+            <li>
+              <a href="/team/">Team Members</a>
+              
+            </li>
+          
+            <li class="has-children">
+              <a href="/dynamic-site/">Wildfire Simulations</a>
+              
+                <ul class="submenu">
+                  
+                    <li><a href="/dynamic-site/ignition-portal/">Ignition Request Portal (Concept UI)</a></li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li class="has-children">
+              <a href="/wildfire-twin/">Methods &amp; Models</a>
+              
+                <ul class="submenu">
+                  
+                    <li><a href="/wildfire-twin/">Climate Models Overview</a></li>
+                  
+                    <li><a href="/dynamical-methods/">WRF &#43; SFIRE Methods</a></li>
+                  
+                    <li><a href="/wrf-sfire-workflow/">WRF-SFIRE End-to-End Workflow</a></li>
+                  
+                    <li><a href="/ai-methods/">FourCastNet Methods</a></li>
+                  
+                </ul>
+              
+            </li>
+          
+            <li>
+              <a href="/sources/">Sources</a>
+              
+            </li>
+          
+        </ul>
+      
+    </nav>
+  </div>
+</header>
+
+<script>
+  (function () {
+    var header = document.querySelector('.wf-header');
+    if (!header) return;
+
+    var toggle    = header.querySelector('.wf-nav-toggle');
+    var nav       = header.querySelector('.wf-nav');
+    var themeBtn  = header.querySelector('.wf-theme-toggle');
+
+     
+    if (toggle && nav) {
+      Array.prototype.forEach.call(nav.querySelectorAll('.has-children'), function (item, index) {
+        var link = item.querySelector(':scope > a');
+        var submenu = item.querySelector(':scope > .submenu');
+        if (!link || !submenu) return;
+
+        submenu.id = submenu.id || ('wf-submenu-' + index);
+
+        var submenuToggle = document.createElement('button');
+        submenuToggle.className = 'wf-submenu-toggle';
+        submenuToggle.type = 'button';
+        submenuToggle.setAttribute('aria-expanded', 'false');
+        submenuToggle.setAttribute('aria-controls', submenu.id);
+        submenuToggle.setAttribute('aria-label', 'Toggle submenu for ' + link.textContent.trim());
+        submenuToggle.innerHTML = '<span aria-hidden="true">+</span>';
+        item.insertBefore(submenuToggle, submenu);
+
+        submenuToggle.addEventListener('click', function (event) {
+          if (window.innerWidth > 900) return;
+          event.preventDefault();
+          var open = item.classList.toggle('is-expanded');
+          submenuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+      });
+
+      toggle.addEventListener('click', function () {
+        var open = header.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+
+      nav.addEventListener('click', function (event) {
+        var link = event.target.closest('a');
+        if (!link || window.innerWidth > 900) return;
+        header.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+
+      window.addEventListener('resize', function () {
+        if (window.innerWidth > 900) {
+          header.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          Array.prototype.forEach.call(nav.querySelectorAll('.has-children.is-expanded'), function (item) {
+            item.classList.remove('is-expanded');
+            var submenuToggle = item.querySelector(':scope > .wf-submenu-toggle');
+            if (submenuToggle) submenuToggle.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+    }
+
+     
+    window.addEventListener('scroll', function () {
+      header.classList.toggle('scrolled', window.scrollY > 24);
+    }, { passive: true });
+
+     
+    if (themeBtn) {
+      themeBtn.addEventListener('click', function () {
+        var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        if (isLight) {
+          document.documentElement.removeAttribute('data-theme');
+          localStorage.setItem('wf-theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('wf-theme', 'light');
+        }
+      });
+    }
+  })();
+</script>
+
+    <main role="main">
+      
+<article class="article-content">
+  <header class="article-header">
+    <h1>Admin Login</h1>
+    
+  </header>
+
+  <section class="article-body">
+    
+<div class="wf-shell">
+  <section class="wf-card wf-auth-card">
+    <p class="wf-eyebrow">Restricted Access</p>
+    <h1>Admin Login</h1>
+    <p class="wf-subtext">Only authorized admins can view and manage submitted jobs.</p>
+
+    <form id="admin-login-form" class="wf-form">
+      <label for="admin-username">Username</label>
+      <input id="admin-username" name="username" type="text" autocomplete="username" required>
+
+      <label for="admin-password">Password</label>
+      <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+
+      <button type="submit" class="wf-btn-primary">Sign In</button>
+      <p id="admin-login-message" class="wf-message" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+</div>
+
+<script src="../../js/admin-login.js" defer></script>
+
+  </section>
+</article>
+
+    </main>
+    <footer class="wf-footer">
+  <div class="wf-shell">
+    <div class="wf-footer-inner">
+      <div class="wf-footer-brand">
+        <span class="wf-footer-name"><span class="fire">Wild</span>fire Lab</span>
+        <span class="wf-footer-sub">Portland State University - Capstone 2025-26</span>
+      </div>
+
+      <nav class="wf-footer-links" aria-label="Footer navigation">
+        <a href="/team/">Team</a>
+        <a href="/dynamic-site/">Simulations</a>
+        <a href="/dynamical-methods/">WRF‑SFIRE</a>
+        <a href="/ai-methods/">FourCastNet</a>
+        <a href="/sources/">Sources</a>
+      </nav>
+
+      <p>© 2026 Portland State University Wildfire Lab</p>
+    </div>
+  </div>
+</footer>
+
+  </body>
+</html>

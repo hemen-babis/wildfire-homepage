@@ -1,0 +1,40 @@
+{{ define "main" }}
+<section class="methods-page">
+  <div class="wf-shell methods-shell">
+    <header class="methods-hero">
+      <div class="wf-section-label">
+        <span class="wf-label-rule"></span>
+        <span class="wf-label-text">AI Forecasting</span>
+      </div>
+      <h1>{{ .Title }}</h1>
+      <p>
+        Overview of the FourCastNet workflow used to translate atmospheric model data into fast wildfire-relevant forecasts.
+      </p>
+    </header>
+
+    <div class="methods-layout">
+      <aside class="methods-sidebar" aria-label="Guide navigation">
+        <div class="methods-panel">
+          <p class="methods-panel-label">Quick Jump</p>
+          {{ .TableOfContents }}
+        </div>
+        <div class="methods-panel methods-panel--compact">
+          <p class="methods-panel-label">Guide Focus</p>
+          <ul class="methods-mini-list">
+            <li>Why FourCastNet fits this project</li>
+            <li>AFNO-based forecasting workflow</li>
+            <li>Wildfire-specific data preprocessing</li>
+            <li>Fast iteration for model experiments</li>
+          </ul>
+        </div>
+      </aside>
+
+      <article class="methods-article">
+        <section class="article-body methods-body">
+          {{ .Content }}
+        </section>
+      </article>
+    </div>
+  </div>
+</section>
+{{ end }}

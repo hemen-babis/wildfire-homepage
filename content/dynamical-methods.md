@@ -2,6 +2,7 @@
 title: "WRF + SFIRE Methods"
 description: "How the Wildfire Lab uses WRF-SFIRE and wrfxpy for dynamical wildfire simulation workflows."
 url: "/dynamical-methods/"
+type: "dynamical-methods"
 ---
 
 # WRF-SFIRE Simulation Guide with WRFxPy
